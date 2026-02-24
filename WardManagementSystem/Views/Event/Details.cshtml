@@ -1,0 +1,44 @@
+﻿@model WardDapperMVC.Model.Domain.VisitSchedule
+
+@{
+    ViewData["Title"] = "Event Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="wide-dark-box">
+    <div class="row">
+        <div class="col-md-12">
+            <div >
+                <div class="card-header">
+                    <h4>Event Details</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        @* <dt class="col-sm-3">Event ID</dt>
+                        <dd class="col-sm-9">@Model.ScheduleID</dd> *@
+
+                        <dt class="col-sm-3">Date</dt>
+                        <dd class="col-sm-9">@Model.Date.ToString("yyyy-MM-dd HH:mm:ss")</dd>
+
+                        <dt class="col-sm-3"> Next Appointment</dt>
+                        <dd class="col-sm-9">@Model.FollowUpAppointmentDate</dd>
+
+                        <dt class="col-sm-3">Doctor</dt>
+                        <dd class="col-sm-9">@Model.DoctorFullName</dd> 
+
+                        <dt class="col-sm-3">Patient Name</dt>
+                        <dd class="col-sm-9">@Model.PatientFullName</dd>
+
+                       @*  <dt class="col-sm-3">Status</dt>
+                        <dd class="col-sm-9">@Model.InActive</dd> *@
+                    </dl>
+                </div>
+                <div class="card-footer">
+                    <a href="@Url.Action("Edit", "Event", new { id = Model.ScheduleID })" class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("Index", "Event")" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

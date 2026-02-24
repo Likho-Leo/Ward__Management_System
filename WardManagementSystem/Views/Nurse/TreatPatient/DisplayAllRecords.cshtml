@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WardDapperMVC.Models.Domain.Nurse.TreatPatient>
+@{
+    ViewData["Title"] = "View Patient Treatment";
+}
+<div class="wide-dark-box">
+    <h1 class="text-center">VIEW PATIENT TREATMENT</h1>
+    <hr style="border: 1px solid white; width: 100%; text-align: center;" />
+    <p>
+        Welcome to the Record Patient Treatment section of our Ward Management System. This feature is designed to help you accurately document and manage the treatment provided to patients under your care.
+    </p>
+    <br />
+
+    <form class="example" method="get" action="@Url.Action("Search", "TreatPatient")">
+        <input type="text" placeholder="Search by Patient No" name="searchTerm">
+        <button type="submit"><i class="fa fa-search"></i></button>
+        <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+        <a href="~/TreatPatient/DisplayAllRecords" class="btn btn-primary">Clear Search</a>
+    </form>
+    <!-- Display the error message -->
+    @if (ViewData.ModelState["SearchError"] != null)
+    {
+        <div class="text-danger">
+            @ViewData.ModelState["SearchError"].Errors[0].ErrorMessage
+        </div>
+    }
+
+    <div class="my-2">
+        <div style="overflow-x:auto;">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Patient Number</t>
+                        <th>Patient First Name</th>
+                        <th>Patient Last Name</th>
+                        <th>Treatment</th>
+                        <th>Date</th>
+                        <th>Nurse Number</th>
+                        <th>Nurse First Name</th>
+                        <th>Nurse Last Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var treatPatient in Model)
+                    {
+                        <tr class="table-light">
+                            <td>@treatPatient.PatientNumber</td>
+                            <td>@treatPatient.PatientFirstName</td>
+                            <td>@treatPatient.PatientLastName</td>
+                            <td>@treatPatient.TreatmentType</td>
+                            <td white-space: nowrap>@treatPatient.Date.ToString("dd-MM-yyyy")</td>
+                            <td>@treatPatient.EmployeeNumber</td>
+                            <td>@treatPatient.NurseFirstName</td>
+                            <td>@treatPatient.NurseLastName</td>
+                            <td white-space: nowrap>
+                                <a href="~/TreatPatient/UpdateRecord?id=@treatPatient.TreatPatientID" class="btn btn-success">Edit</a>
+                                <a href="~/TreatPatient/ViewDeleteTreatment?id=@treatPatient.TreatPatientID" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <div class="d-flex justify-content-start align-items-center">
+            <a asp-controller="TreatPatient" asp-action="AddRecord" class="btn btn-primary">Add More</a>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-controller="Nurse" asp-action="Home" class="btn btn-primary">Home</a>
+        </div>
+    </div>
+</div>
+<br />

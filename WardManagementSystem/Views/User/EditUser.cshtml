@@ -1,0 +1,187 @@
+﻿@model WardDapperMVC.Models.Domain.User
+@{
+    ViewData["Title"] = "EditUser";
+}
+<div class="wide-dark-box">
+    <h3 class="text-center">MANAGE EMPLOYEE</h3>
+    <p>Welcome to the Manage Employees section of our Ward Management System. This feature is designed to help administrators efficiently manage and oversee employee information and operations.</p>
+  
+    <form asp-action="EditUser" method="post">
+        <input asp-for="UserID" type="hidden" class="form-control">
+        <input asp-for="EmployeeNumber" type="hidden" class="form-control" >  
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="FirstName" class="form-label">First Name<span style="color: red;">*</span></label>
+                <input asp-for="FirstName" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="FirstName"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="LastName" class="form-label">Last Name<span style="color: red;">*</span></label>
+                <input asp-for="LastName" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="LastName"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Title" class="form-label">Title<span style="color: red;">*</span></label>
+                <select asp-for="Title" class="form-control">
+                    <option value="">-- Select Title --</option>
+                    <option value="Mr.">Mr.</option>
+                    <option value="Ms.">Ms.</option>
+                    <option value="Mrs.">Mrs.</option>
+                    <option value="Dr.">Dr.</option>
+                    <option value="Prof.">Prof.</option>
+                    <!-- Add more options as needed -->
+                </select>
+                <span class="text-danger" asp-validation-for="Title"></span>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Gender<span style="color: red;">*</span></label><br />
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="Gender" value="Male">
+                    <label class="form-check-label">Male</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="Gender" value="Female">
+                    <label class="form-check-label">Female</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="Gender" value="Other">
+                    <label class="form-check-label">Other</label>
+                </div>
+
+                <span class="text-danger" asp-validation-for="Gender"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="IDNo" class="form-label">ID Number<span style="color: red;">*</span></label>
+                <input asp-for="IDNo" class="form-control" />
+                <span asp-validation-for="IDNo" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="DOB" class="form-label">D.O.B<span style="color: red;">*</span></label>
+                <input asp-for="DOB" class="form-control" type="date" />
+                <span asp-validation-for="DOB" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="PhoneNumber" class="form-label">Phone Number<span style="color: red;">*</span></label>
+                <input asp-for="PhoneNumber" class="form-control" type="tel" pattern="[0-9]*" inputmode="numeric" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Email" class="form-label">Email Address<span style="color: red;">*</span></label>
+                <input asp-for="Email" type="email" class="form-control">
+                <span asp-validation-for="Email"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Password" class="form-label">Password</label>
+                <input asp-for="Password" type="text" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Role" class="form-label">Role<span style="color: red;">*</span></label>
+                <select asp-for="Role" class="form-control input-long">
+                    <option value="">-- Select Role --</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Nurse">Nurse</option>
+                    <option value="NursingSister">Nursing Sister</option>
+                    <option value="WardAdmin">Ward Admin</option>
+                    <option value="StockManager">Stock Manager</option>
+                    <option value="ScriptManager">Script Manager</option>
+                </select>
+                <span class="text-danger" asp-validation-for="Role"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="AddressLine1" class="form-label">Address Line1<span style="color: red;">*</span></label>
+                <input asp-for="AddressLine1" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="AddressLine1"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="AddressLine2" class="form-label">Address Line2</label>
+                <input asp-for="AddressLine2" type="text" class="form-control">
+            </div> 
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Country" class="form-label">Country<span style="color: red;">*</span></label>
+                <input asp-for="Country" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="Country"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="Province" class="form-label">Province<span style="color: red;">*</span></label>
+                <input asp-for="Province" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="Province"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="City" class="form-label">City<span style="color: red;">*</span></label>
+                <input asp-for="City" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="City"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="Town_Surburb" class="form-label">Town/Surburb<span style="color: red;">*</span></label>
+                <input asp-for="Town_Surburb" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="Town_Surburb"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="PostalCode" class="form-label">Postal Code<span style="color: red;">*</span></label>
+                <input asp-for="PostalCode" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="PostalCode"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="EmploymentDate" class="form-label">Employment Date<span style="color: red;">*</span></label>
+                <input asp-for="EmploymentDate" class="form-control" type="date" />
+                <span asp-validation-for="EmploymentDate" class="text-danger"></span>
+            </div>
+        </div>
+        
+        <br />
+        @if (TempData["msg"] != null)
+        {
+            <div class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+
+        <div class="d-flex justify-content-start align-items-center">
+            <button type="submit" class="btn btn-success">Save</button>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-controller="User" asp-action="DisplayAllUser" class="my-2 btn btn-primary">Display Records</a>
+        </div>
+    </form> 
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Hide validation messages when user starts typing
+            $('input, textarea').on('input', function () {
+                $(this).siblings('.text-danger').hide();
+            });
+        });
+    </script>
+}

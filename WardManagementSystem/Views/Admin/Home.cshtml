@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+    <div class=" text-center wide-dark-box">
+                <h1 class="display-4">Welcome to S.H.I.F.T</h1>
+                <p class="lead">System for Healthcare Integration and Facility Tracking</p>
+                <p> We are delighted to have you here. This platform is designed to streamline and enhance the management of ward activities, 
+                    ensuring efficient and effective operations within your healthcare facility.
+                    Our goal is to provide you with a user-friendly and reliable system that supports your administrative duties, helping you to deliver exceptional care to your patients.
+                    <br />
+                    Use the buttons below to navigate to your desired page.
+                </p>
+
+                <div class="row justify-content-center mt-5">
+                    <div class="col-md-3">
+                            <a asp-controller="HospitalInformation" asp-action="DisplayAllHospital" class="btn btn-outline-light btn-lg btn-block">
+                            <img src="~/Images/Admin/manage_hospital.svg" alt="Manage Hospital" class="img-fluid">
+                            Manage Hospital Info
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                            <a asp-controller="User" asp-action="DisplayAllUser" class="btn btn-outline-light btn-lg btn-block">
+                            <img src="~/Images/Admin/manage_employees.svg" alt="Manage Employess" class="img-fluid">
+                            Manage Employess
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                            <a asp-controller="Ward" asp-action="DisplayAllWard" class="btn btn-outline-light btn-lg btn-block">
+                            <img src="~/Images/Admin/manage_beds_wards.svg" alt="Manage Wards/Beds" class="img-fluid">
+                            Manage Wards/Beds
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                            <a  asp-controller="Consumable" asp-action="DisplayAllConsumable" class="btn btn-outline-light btn-lg btn-block">
+                            <img src="~/Images/Admin/manage_consumables.svg" alt="Manage Consumables" class="img-fluid">
+                            Manage Consumables
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                            <a asp-controller="Allergy" asp-action="DisplayAllAllergy" class="btn btn-outline-light btn-lg btn-block">
+                            <img src="~/Images/Admin/manage_allergies.svg" alt="Manage Allergies" class="img-fluid">
+                            Manage Allergies
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                            <a  asp-controller="Condition" asp-action="DisplayAllCond" class="btn btn-outline-light btn-lg btn-block">
+                            <img src="~/Images/Admin/manage_conditions.svg" alt="Manage Conditions" class="img-fluid">
+                            Manage Conditions
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                            <a asp-controller="Medication" asp-action="DisplayAllMed" class="btn btn-outline-light btn-lg btn-block">
+                            <img src="~/Images/Admin/manage_medication.svg" alt="Manage Medication" class="img-fluid">
+                            Manage Medication
+                        </a>
+                    </div>
+                
+                </div>
+   </div>

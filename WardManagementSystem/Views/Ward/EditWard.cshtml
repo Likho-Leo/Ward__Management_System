@@ -1,0 +1,84 @@
+﻿@model WardDapperMVC.Models.Domain.Ward
+@{
+    ViewData["Title"] = "EditWard";
+}
+<div class="wide-dark-box">
+    <h2 class="text-center">UPDATE WARD</h2>
+    <br />
+    <p>
+        Welcome to the Manage Wards/Beds section of our Ward Management System.
+        This feature is designed to help administrators efficiently manage and optimize the allocation of wards and beds within our healthcare facility.
+    </p>
+
+    <form asp-action="EditWard" method="post">
+        <input type="hidden" asp-for="WardID" />
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="WardType" class="form-label">Ward Type<span style="color: red;">*</span></label>
+                <input asp-for="WardType" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="WardType"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="WardName" class="form-label">Ward Name<span style="color: red;">*</span></label>
+                <input asp-for="WardName" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="WardName"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="TotalBeds" class="form-label">Total Beds<span style="color: red;">*</span></label>
+                <input asp-for="TotalBeds" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="TotalBeds"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Status" class="form-label">Status<span style="color: red;">*</span></label>
+                <select asp-for="Status" class="form-control">
+                    <option value="">Select Status</option>
+                    <option value="Not Full">Not Full</option>
+                    <option value="Full">Full</option>
+                </select>
+                <span class="text-danger" asp-validation-for="Status"></span>
+            </div>
+        </div>
+
+        <br />
+        @if (TempData["msg"] != null)
+        {
+            <div id="notification" class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+
+        <div class="d-flex justify-content-start align-items-center">
+            <button type="submit" class="btn btn-success">Save</button>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-controller="Ward" asp-action="DisplayAllWard" class="my-2 btn btn-primary">Display Records</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Hide validation messages when user starts typing
+            $('input, textarea').on('input', function () {
+                $(this).siblings('.text-danger').hide();
+            });
+        });
+        $(document).ready(function () {
+            // Show notification if it exists
+            if ($('#notification').text().trim() !== '') {
+                $('#notification').fadeIn().delay(3000).fadeOut(); // Display for 3 seconds
+            }
+        });
+    </script>
+}

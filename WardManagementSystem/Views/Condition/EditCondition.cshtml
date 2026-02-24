@@ -1,0 +1,66 @@
+﻿@model WardDapperMVC.Models.Domain.Condition
+@{
+    ViewData["Title"] = "EditCondition";
+}
+
+<div class="wide-dark-box">
+    <h2 class="text-center">UPDATE CONDITION</h2>
+    <br />
+    <p>
+        Welcome to the Manage Conditions section of our Ward Management System.
+        This feature is designed to assist administrators and healthcare professionals in accurately documenting and managing patient conditions.
+    </p>
+
+    <form asp-action="EditCondition" method="post">
+        <input type="hidden" asp-for="ConditionID" />
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Conditions" class="form-label">Condition<span style="color: red;">*</span></label>
+                <input asp-for="Conditions" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="Conditions"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="ConditionType" class="form-label">Condition Type<span style="color: red;">*</span></label>
+                <input asp-for="ConditionType" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="ConditionType"></span>
+            </div>
+        </div>
+
+        <br />
+        @if (TempData["msg"] != null)
+        {
+            <div id="notification" class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+
+        <div class="d-flex justify-content-start align-items-center">
+            <button type="submit" class="btn btn-success">Save</button>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-controller="Condition" asp-action="DisplayAllCond" class="my-2 btn btn-primary">Display Records</a>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Hide validation messages when user starts typing
+            $('input, textarea').on('input', function () {
+                $(this).siblings('.text-danger').hide();
+            });
+        });
+        $(document).ready(function () {
+            // Show notification if it exists
+            if ($('#notification').text().trim() !== '') {
+                $('#notification').fadeIn().delay(3000).fadeOut(); // Display for 3 seconds
+            }
+        });
+    </script>
+}

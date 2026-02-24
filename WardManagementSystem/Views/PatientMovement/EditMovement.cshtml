@@ -1,0 +1,116 @@
+﻿@model WardDapperMVC.Models.Domain.PatientMovement
+@{
+    ViewData["Title"] = "Edit Patient Movement";
+}
+
+<div class="wide-dark-box">
+    <h2 class="text-center">UPDATE PATIENT MOVEMENTS</h2>
+    <br />
+    <p>
+        Welcome to the Edit Patient Movement section of our Ward Management System,
+        where you can modify and update records of patient movements and their current locations.
+    </p>
+    
+    <form asp-action="EditMovement" method="post">
+        <!-- Hidden field to store the ID -->
+        <input type="hidden" asp-for="MovementID" />
+        <input asp-for="PatientId" type="hidden" />
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="FirstName" class="form-label">First Name<span style="color: red;">*</span></label>
+                <input asp-for="FirstName" type="text" class="form-control" readonly />
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="LastName" class="form-label">Last Name<span style="color: red;">*</span></label>
+                <input asp-for="LastName" type="text" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="WardId" class="form-label">Ward Name<span style="color: red;">*</span></label>
+                @Html.DropDownListFor(model => model.WardId, (SelectList)ViewBag.WardList, "Select Ward", new { @class = "form-control", id = "WardDropdown" })
+                <span class="text-danger" asp-validation-for="WardId"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="BedID" class="form-label">Bed Number<span style="color: red;">*</span></label>
+                @Html.DropDownListFor(model => model.BedID, (SelectList)ViewBag.BedList, "Select Bed", new { @class = "form-control", id = "BedDropdown" })
+                <span class="text-danger" asp-validation-for="BedID"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Date" class="form-label">Movement Date<span style="color: red;">*</span></label>
+                <input asp-for="Date" type="date" class="form-control" />
+                <span class="text-danger" asp-validation-for="Date"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="Status" class="form-label">Status<span style="color: red;">*</span></label>
+                <select asp-for="Status" class="form-control">
+                    <option value="">Select Status</option>
+                    <option value="Check-in">Check-in</option>
+                    <option value="Check-out">Check-out</option>
+                </select>
+                <span class="text-danger" asp-validation-for="Status"></span>
+            </div>
+        </div>
+        <br />
+        @if (TempData["msg"] != null)
+        {
+            <div id="notification" class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+        <div class="d-flex justify-content-start align-items-center">
+            <button type="submit" class="btn btn-success">Save</button>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-controller="PatientMovement" asp-action="DisplayAllMovements" class="my-2 btn btn-primary">Display Records</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#WardDropdown').change(function () {
+            var wardId = $(this).val();
+            if (wardId) {
+                $.ajax({
+                    url: '@Url.Action("GetBedsByWard", "PatientMovement")',
+                    type: 'GET',
+                    data: { wardId: wardId },
+                    success: function (data) {
+                        var bedDropdown = $('#BedDropdown');
+                        bedDropdown.empty();
+                        bedDropdown.append('<option value="">Select Bed</option>');
+                        $.each(data, function (i, bed) {
+                            bedDropdown.append('<option value="' + bed.value + '">' + bed.text + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert('Error retrieving beds');
+                    }
+                });
+            } else {
+                $('#BedDropdown').empty().append('<option value="">Select Bed</option>');
+            }
+        });
+
+        $(document).ready(function () {
+            // Hide validation messages when user starts typing
+            $('input, textarea').on('input', function () {
+                $(this).siblings('.text-danger').hide();
+            });
+        });
+        $(document).ready(function () {
+            // Show notification if it exists
+            if ($('#notification').text().trim() !== '') {
+                $('#notification').fadeIn().delay(3000).fadeOut(); // Display for 3 seconds
+            }
+        });
+    </script>
+}

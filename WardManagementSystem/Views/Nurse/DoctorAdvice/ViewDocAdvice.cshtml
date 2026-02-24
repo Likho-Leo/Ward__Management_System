@@ -1,0 +1,91 @@
+﻿@using WardDapperMVC.Models.Domain.Nurse
+@model DoctorAdvice
+@{
+    ViewData["Title"] = "View Dr's note for patient.";
+}
+
+<div class="wide-dark-box">
+    <h1 class="text-center">View Note for Patient</h1>
+    <hr style="border: 1px solid white; width: 100%; text-align: center;" />
+
+    <form method="post" asp-action="ViewDocAdvice" asp-controller="DoctorAdvice">
+        <div class="form-group">
+            <input type="hidden" name="id" value="@Model.InstructionID" />
+
+            <div class="row">
+                <!-- First Column -->
+                <div class="col-sm-6">
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.PatientFirstName)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.PatientFirstName)
+                        </dd>
+                    </div>
+
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.PatientLastName)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.PatientLastName)
+                        </dd>
+                    </div>
+
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.DoctorNote)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.DoctorNote)
+                        </dd>
+                    </div>
+
+                    <div class="row">
+                        <dt class="col-sm-6">Date</dt>
+                        <dd class="col-sm-6">
+                            @Model.DateOfVisit.ToString("dd/MM/yyyy")
+                        </dd>
+                    </div>
+
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.DischargeStatus)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.DischargeStatus)
+                        </dd>
+                    </div>
+                </div>
+
+                <!-- Second Column -->
+                <div class="col-sm-6">
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.DoctorFirstName)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.DoctorFirstName)
+                        </dd>
+                    </div>
+
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.DoctorLastName)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.DoctorLastName)
+                        </dd>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    </form>
+    <form method="post" asp-action="ViewDocAdvice" asp-route-id="@Model.InstructionID">
+        <a href="@Url.Action("DisplayAllRecords")" class="btn btn-primary">Back</a>
+    </form>
+</div>
+
+

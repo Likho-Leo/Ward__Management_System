@@ -1,0 +1,51 @@
+﻿@model WardDapperMVC.Models.Domain.Prescription
+
+@{
+    ViewData["Title"] = "Edit Prescription";
+}
+<div class="wide-dark-box">
+    <h2>Edit Prescription</h2>
+    <hr />
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="PrescriptionID" />
+        <div class="form-group">
+            <label asp-for="Script"></label>
+            <input asp-for="Script" class="form-control" />
+            <span asp-validation-for="Script" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Date"></label>
+            <input asp-for="Date" class="form-control" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProcessStatus"></label>
+            <input asp-for="ProcessStatus" class="form-control" />
+            <span asp-validation-for="ProcessStatus" class="text-danger"></span>
+        </div>
+        @*  <div class="form-group">
+        <label asp-for="DoctorID"></label>
+        <input asp-for="DoctorID" class="form-control" readonly/>
+        <span asp-validation-for="DoctorID" class="text-danger"></span>
+        </div> *@
+        <input asp-for="DoctorID" class="form-control" hidden />
+        <input asp-for="PatientID" class="form-control" hidden />
+
+        <br />
+        @if (TempData["msg"] != null)
+        {
+            <div class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+        <div class="d-flex justify-content-start align-items-center">
+            <button type="submit" class="btn btn-success">Save</button>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-action="DisplayAll" class="my-2 btn btn-primary">Display Records</a>
+        </div>
+
+       @*  <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="DisplayAll" class="btn btn-secondary">Cancel</a> *@
+    </form>
+ </div>
+

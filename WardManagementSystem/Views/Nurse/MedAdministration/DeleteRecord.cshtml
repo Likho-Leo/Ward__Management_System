@@ -1,0 +1,110 @@
+﻿@using WardDapperMVC.Models.Domain.Nurse
+@model MedAdministration
+@{
+    ViewData["Title"] = "Delete Med Administration Record";
+}
+
+<div class="wide-dark-box">
+<h1 class="text-center">Delete Confirmation</h1>
+<hr style="border: 1px solid white; width: 100%; text-align: center;" />
+<p>Are you sure you want to delete this record?</p>
+<br />
+<form method="post" asp-action="DeleteMedAdmin" asp-controller="MedAdministration">
+        <div class="form-group">
+            <input type="hidden" name="id" value="@Model.AdminMedID" />
+            <input type="hidden" name="id" value="@Model.PatientId" />
+
+            <div class="row">
+                @* Patient First Name and Nurse First Name side by side *@
+                <div class="col-sm-6">
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.PatientFirstName)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.PatientFirstName)
+                        </dd>
+                    </div>
+
+                    @* Patient Last Name and Medication Details below it *@
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.PatientLastName)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.PatientLastName)
+                        </dd>
+                    </div>
+
+                    @* Medication Name, Dosage, Route, Frequency, Date under the Patient Name *@
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.Med)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.Med)
+                        </dd>
+                    </div>
+
+                    <div class="row">
+                        <dt class="col-sm-6">Date</dt>
+                        <dd class="col-sm-6">
+                            @Model.Date.ToString("dd/MM/yyyy")
+                        </dd>
+                    </div>
+                </div>
+
+                @* Nurse First Name and Last Name side by side *@
+                <div class="col-sm-6">
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.NurseFirstName)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.NurseFirstName)
+                        </dd>
+                    </div>
+
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.NurseLastName)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.NurseLastName)
+                        </dd>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+          @*   </div>
+
+            <div class="row">
+                @* Pulse Rate and Respiration Rate 
+                <div class="col-sm-6">
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.PulseRate)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.PulseRate)
+                        </dd>
+                    </div>
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.RespirationRate)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.RespirationRate)
+                        </dd>
+                    </div>
+                </div>
+            </div> *@
+        <br />
+</form>
+    <form method="post" asp-action="DeleteMedAdmin" asp-route-id="@Model.AdminMedID">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+        <a href="@Url.Action("DisplayAllRecords")" class="btn btn-success">Cancel</a>
+    </form>
+</div>

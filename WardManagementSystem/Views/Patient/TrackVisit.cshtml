@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WardDapperMVC.Models.Domain.PatientInstruction>
+@{
+    ViewData["Title"] = "Track Visit";
+}
+
+<div class="wide-dark-box">
+    <h1 class="text-center">TRACK DOCTOR VISIT</h1>
+    <br />
+    <hr />
+   @*  <p>
+        Welcome to our patient management system.
+        Begin by admitting new patients, updating their information, and finalizing the discharge process. For any assistance, our team is here to help.
+    </p>
+ *@
+    <div class="table-responsive">
+        <!-- Search Form -->
+        <form method="get" asp-action="DisplayAllPatient" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search by Patient Number"
+                       aria-label="Search by Patient Number" value="@Context.Request.Query["search"]" style="max-width: 300px;" />
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </form>
+
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                   @*  <th>Patient Number</th> *@
+                    <th>Patient FullName</th>
+                    <th>Doctor FullName</th>
+                    <th>Date Of Visit</th>
+                    <th>Follow Appointment Date</th>
+                    <th>Discharge Status</th>
+                @*     <th>Actions</th> *@
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                @foreach (var patient in Model)
+                {
+                    <tr>
+                       @*  <td>@patient.PatientNumber</td> *@
+                        <td>@patient.PatientFullName</td>
+                        <td>@patient.UserFullName</td>
+                        <td>@patient.DateOfVisit.ToString("yyyy-MM-dd") </td>
+                        <td>@patient.FollowUpAppointmentDate?.ToShortDateString()</td>
+                        <td>@patient.DischargeStatus</td>
+                       @*  <td>
+                            <a asp-action="EditPatient" asp-controller="Patient" asp-route-id="@patient.PatientId" class="btn btn-info my-2">Edit</a>
+                            <a asp-action="DeletePatient" asp-controller="Patient" asp-route-id="@patient.PatientId" class="btn btn-danger" onclick="return window.confirm('Are you sure you want to delete this record? This action cannot be undone.')">Delete</a>
+                        </td> *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <br />
+@*     <a asp-action="" class="btn btn-success">Admit New</a> *@
+    <br />
+    <div id="notification" style="display:none; padding: 10px;">
+        @if (TempData["msg"] != null)
+        {
+            <div class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+    </div>
+</div>

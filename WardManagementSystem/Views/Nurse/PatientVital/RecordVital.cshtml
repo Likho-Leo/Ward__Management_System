@@ -1,0 +1,250 @@
+﻿@using WardDapperMVC.Models.Domain.Nurse
+@model PatientVital
+
+@{
+    ViewData["Title"] = "Record Patient Vitals";
+}
+
+<div class="wide-dark-box">
+    <h1 class="text-center">RECORD PATIENT VITAL SIGNS</h1>
+    <hr style="border: 1px solid white; width: 100%; text-align: center;" />
+    <p class="text-center">
+        Welcome to the Record Patient Vital Signs section of our Ward Management System. This tool is designed to help you efficiently document and monitor your patients' vital signs with accuracy and ease.
+    </p>
+
+    <form asp-action="RecordVital">
+        <input asp-for="PatientId" id="PatientId" type="text" class="form-control" hidden>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="PatientNumber" class="form-label">Patient Number<span style="color: red;">*</span></label>
+                <div style="display: flex; align-items: center;">
+                    <input asp-for="PatientNumber" id="PatientNo" type="text" class="form-control" placeholder="Enter Patient Number" style="flex: 1; margin-right: 10px;">
+                    <button id="searchPatient" class="btn btn-primary">Search</button>
+                    <!-- Spinner -->
+                    <div id="patientLoading" style="display:none; margin-left: 10px;" class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <span class="text-danger" asp-validation-for="PatientNumber"></span>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <label asp-for="PatientFirstName" class="form-label">Patient First Name<span style="color: red;">*</span></label>
+                <input asp-for="PatientFirstName" id="PatientFirstName" type="text" class="form-control" placeholder="Auto-Filled" readonly>
+                <span class="text-danger" asp-validation-for="PatientFirstName"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="PatientLastName" class="form-label">Patient Last Name<span style="color: red;">*</span></label>
+                <input asp-for="PatientLastName" id="PatientLastName" type="text" class="form-control" placeholder="Auto-Filled" readonly>
+                <span class="text-danger" asp-validation-for="PatientLastName"></span>
+            </div>
+        </div>
+
+        <input asp-for="UserId" id="UserId" type="text" class="form-control" hidden>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="EmployeeNumber" class="form-label">Employee Number<span style="color: red;">*</span></label>
+                <div style="display: flex; align-items: center;">
+                    <input asp-for="EmployeeNumber" id="EmployeeNo" type="text" class="form-control" placeholder="Enter Employee Number" style="flex: 1; margin-right: 10px;">
+                    <button id="searchEmployee" class="btn btn-primary">Search</button>
+                    <!-- Spinner -->
+                    <div id="employeeLoading" style="display:none; margin-left: 10px;" class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                <span class="text-danger" asp-validation-for="EmployeeNumber"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="NurseFirstName" class="form-label">Nurse First Name<span style="color: red;">*</span></label>
+                <input asp-for="NurseFirstName" type="text" class="form-control" placeholder="Auto-Filled" readonly>
+                <span class="text-danger" asp-validation-for="NurseLastName"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="NurseLastName" class="form-label">Nurse Last Name<span style="color: red;">*</span></label>
+                <input asp-for="NurseLastName" type="text" class="form-control" placeholder="Auto-Filled" readonly>
+                <span class="text-danger" asp-validation-for="NurseLastName"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="BloodPressure" class="form-label">Blood Pressure (mmHg)<span style="color: red;">*</span></label>
+                <input asp-for="BloodPressure" type="text" class="form-control" placeholder="Required">
+                <span class="text-danger" asp-validation-for="BloodPressure"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="BloodOxygen" class="form-label">Blood Oxygen Levels (SpO2)<span style="color: red;">*</span></label>
+                <input asp-for="BloodOxygen" type="text" class="form-control" placeholder="Required">
+                <span class="text-danger" asp-validation-for="BloodOxygen"></span>
+            </div>
+            
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="BloodGlucoseLvl" class="form-label">Blood Glucose Level (mg/dl)<span style="color: red;">*</span></label>
+                <input asp-for="BloodGlucoseLvl" type="text" class="form-control" placeholder="Required">
+                <span class="text-danger" asp-validation-for="BloodGlucoseLvl"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="BodyTemp" class="form-label">Body Temperature (°C)<span style="color: red;">*</span></label>
+                <input asp-for="BodyTemp" type="text" class="form-control" placeholder="Required">
+                <span class="text-danger" asp-validation-for="BodyTemp"></span>
+            </div>
+            
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="PulseRate" class="form-label">Pulse Rate (bpm)<span style="color: red;">*</span></label>
+                <input asp-for="PulseRate" type="text" class="form-control" placeholder="Required">
+                <span class="text-danger" asp-validation-for="PulseRate"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="RespirationRate" class="form-label">Respiration Rate (bpm)<span style="color: red;">*</span></label>
+                <input asp-for="RespirationRate" type="text" class="form-control" placeholder="Required">
+                <span class="text-danger" asp-validation-for="RespirationRate"></span>
+            </div>
+           
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Weight" class="form-label">Body Weight (kg)<span style="color: red;">*</span></label>
+                <input asp-for="Weight" type="text" class="form-control" placeholder="Required">
+                <span class="text-danger" asp-validation-for="Weight"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Date" class="form-label">Date<span style="color: red;">*</span></label>
+                <input asp-for="Date" type="date" class="form-control" placeholder="Required">
+                <span class="text-danger" asp-validation-for="Date"></span>
+            </div>
+        </div>
+
+        @if (TempData["msg"] != null)
+        {
+            <div class="alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+
+        <div class="d-flex justify-content-start align-items-center">
+            <button type="submit" class="btn btn-success "> Add </button>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a href="~/PatientVital/DisplayAll" class="btn btn-primary">View All Records</a>
+        </div>
+
+    </form>
+</div>
+<br />
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        var patientUrl = '@Url.Action("GetPatientDetailsByNo", "Patient")';
+        var employeeUrl = '@Url.Action("GetEmployeeDetailsByNo", "User")';
+
+        $('#searchPatient').on('click', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var patientNumber = $('#PatientNo').val().trim();
+
+            if (patientNumber) {
+                // Show the loading spinner
+                $('#patientLoading').show();
+                $.ajax({
+                    url: patientUrl,
+                    type: 'GET',
+                    data: { patientNumber: patientNumber },
+                    success: function (response) {
+                        // Hide the loading spinner
+                        $('#patientLoading').hide();
+
+                        console.log('Response:', response); // Inspect the full response
+                        if (response.success) {
+                            console.log('Patient Id:', response.data.patientId);
+                            console.log('First Name:', response.data.firstName); // Inspect individual fields
+                            console.log('Last Name:', response.data.lastName);
+                            $('#PatientId').val(response.data.patientId);
+                            $('#PatientFirstName').val(response.data.firstName);
+                            $('#PatientLastName').val(response.data.lastName);
+                        } else {
+                            alert(response.message);
+                            $('#PatientId').val('');
+                            $('#PatientFirstName').val('');
+                            $('#PatientLastName').val('');
+                        }
+                    }
+                    ,
+                    error: function () {
+                        // Hide the loading spinner
+                        $('#patientLoading').hide();
+
+                        // Handle any errors that occurred during the request
+                        alert('Error retrieving patient details.');
+                        $('#PatientFirstName').val('');
+                        $('#PatientLastName').val('');
+                    }
+                });
+            } else {
+                // Display an alert if the patient number is empty
+                alert('Please enter a patient number.');
+            }
+        });
+
+        $('#searchEmployee').on('click', function (event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        var employeeNumber = $('#EmployeeNo').val().trim();
+
+        if (employeeNumber) {
+            // Show the loading spinner
+            $('#employeeLoading').show();
+
+            $.ajax({
+                url: employeeUrl,
+                type: 'GET',
+                data: { employeeNumber: employeeNumber },
+                success: function (response) {
+                    // Hide the loading spinner
+                    $('#employeeLoading').hide();
+
+                    console.log('Response:', response); // Inspect the full response
+                    if (response.success) {
+                        console.log('UserId:', response.data.userId);
+                        console.log('First Name:', response.data.firstName); // Inspect individual fields
+                        console.log('Last Name:', response.data.lastName);
+                        $('#UserId').val(response.data.userId);
+                        $('#NurseFirstName').val(response.data.firstName);
+                        $('#NurseLastName').val(response.data.lastName);
+                    } else {
+                        alert(response.message);
+                        $('#UserId').val('');
+                        $('#NurseFirstName').val('');
+                        $('#NurseLastName').val('');
+                    }
+                },
+                error: function () {
+                    // Hide the loading spinner
+                    $('#employeeLoading').hide();
+
+                    // Handle any errors that occurred during the request
+                    alert('Error retrieving nurse details.');
+                    $('#UserId').val('');
+                    $('#NurseFirstName').val('');
+                    $('#NurseLastName').val('');
+                }
+            });
+        } else {
+            // Display an alert if the employee number is empty
+            alert('Please enter an employee number.');
+        }
+    });
+
+    </script>
+}

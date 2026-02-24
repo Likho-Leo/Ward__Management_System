@@ -1,0 +1,77 @@
+﻿@model WardDapperMVC.Models.Domain.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<html>
+<head>
+    <style>
+        /* Inline CSS to set the background image */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('../Images/login_background.jpg'); /* Path to your background image */
+            background-size: cover; /* Ensures the image covers the entire viewport */
+            background-position: center; /* Centers the image */
+            background-repeat: no-repeat; /* Avoids repeating the image */
+            height: 100%; /* Ensures the body height is 100% of the viewport height */
+            width: 100%; /* Ensures the body width is 100% of the viewport width */
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+
+<body>
+    <div class="container wide-dark-box-login">
+        <div class="card-body">
+            <h2 class="text-center mb-4" style="color: white;">Login</h2>
+            <p>Please enter your email address and password to login</p>
+            <form asp-action="Login" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Email Address</label>
+                    <input asp-for="Email" type="text" class="form-control">
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
+                <div class="form-group position-relative mb-3">
+                    <label asp-for="Password" class="form-label">Password</label>
+                    <div class="input-group">
+                        <input asp-for="Password" type="password" class="form-control" id="passwordInput">
+                        <span class="input-group-text">
+                            <i class="fa fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+                        </span>
+                    </div>
+                    <span class="text-danger" asp-validation-for="Password"></span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="form-check">
+                        <input asp-for="RememberMe" class="form-check-input" type="checkbox" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="~/Login/ForgotPassword" style="color:navy">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+        </div>
+    </div>
+
+    @* <script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+    var password = document.getElementById('passwordInput');
+    var eyeIcon = document.getElementById('eyeIcon');
+    if (password.type === 'password') {
+    password.type = 'text';
+    eyeIcon.classList.remove('fa-eye');
+    eyeIcon.classList.add('fa-eye-slash');
+    } else {
+    password.type = 'password';
+    eyeIcon.classList.remove('fa-eye-slash');
+    eyeIcon.classList.add('fa-eye');
+    }
+    });
+    </script> *@
+
+</body>
+</html>
+
+

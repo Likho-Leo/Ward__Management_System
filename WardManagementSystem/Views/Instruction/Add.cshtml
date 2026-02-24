@@ -1,0 +1,101 @@
+﻿@model WardDapperMVC.Models.Domain.PatientInstruction
+
+<div class="wide-dark-box">
+    <h2>Add Patient Instruction</h2>
+
+    <form asp-action="Add" method="post">
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="PatientID"></label>
+                <input asp-for="PatientID" class="form-control" />
+                <span asp-validation-for="PatientID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="DoctorID"></label>
+                <input asp-for="DoctorID" class="form-control" />
+                <span asp-validation-for="DoctorID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="DateOfVisit"></label>
+                <input asp-for="DateOfVisit" type="date" class="form-control" />
+                <span asp-validation-for="DateOfVisit" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="FollowUpAppointmentDate"></label>
+                <input asp-for="FollowUpAppointmentDate" type="date" class="form-control" />
+                <span asp-validation-for="FollowUpAppointmentDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="DoctorNote"></label>
+                <textarea asp-for="DoctorNote" class="form-control"></textarea>
+                <span asp-validation-for="DoctorNote" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="DischargeStatus"></label>
+                <input asp-for="DischargeStatus" class="form-control" />
+                <span asp-validation-for="DischargeStatus" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Rest"></label>
+                <input asp-for="Rest" class="form-control" />
+                <span asp-validation-for="Rest" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="WoundCare"></label>
+                <input asp-for="WoundCare" class="form-control" />
+                <span asp-validation-for="WoundCare" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Medications"></label>
+                <input asp-for="Medications" class="form-control" />
+                <span asp-validation-for="Medications" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Diet"></label>
+                <input asp-for="Diet" class="form-control" />
+                <span asp-validation-for="Diet" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="EmergencySigns"></label>
+                <input asp-for="EmergencySigns" class="form-control" />
+                <span asp-validation-for="EmergencySigns" class="text-danger"></span>
+            </div>
+        </div>
+
+        <br />
+        @if (TempData["msg"] != null)
+        {
+            <div id="notification" class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+
+        <div class="d-flex justify-content-start align-items-center">
+            <button type="submit" class="btn btn-success">Save</button>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-action="DisplayAll" class="my-2 btn btn-primary">Display Records</a>
+        </div>
+       @*  <button type="submit" class="btn btn-primary">Add Instruction</button> *@
+    </form>
+</div>
+

@@ -1,0 +1,97 @@
+﻿@model IEnumerable<WardDapperMVC.Models.Domain.PatientFolder>
+@{
+    ViewData["Title"] = "DisplayAllFolders";
+}
+
+<div class="wide-dark-box">
+    <h1 class="text-center">MANAGE PATIENT FOLDERS</h1>
+    <br />
+    <p>
+        Welcome to the Manage Patient Folders section of our Ward Management System,
+        where you can seamlessly open new patient folders, update existing information, and expertly finalize the discharge process.
+    </p>
+
+    <div class="table-responsive">
+        <!-- Search Form -->
+        <form method="get" asp-controller="PatientFolder" asp-action="DisplayAllPatientFolder" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search by Patient Number"
+                       aria-label="Search by Patient Number" value="@Context.Request.Query["search"]" style="max-width: 300px;" />
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </form>
+
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Patient Number</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Ward Name</th>
+                    <th>Bed Number</th>
+                    <th>Admited Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                @foreach (var folder in Model)
+                {
+                    <tr>
+                        <td>@folder.PatientNumber</td>
+                        <td>@folder.FirstName</td>
+                        <td>@folder.LastName</td>
+                        <td>@folder.WardName</td>
+                        <td>@folder.BedNo</td>
+                        <td>@folder.AdmitDate.ToString("yyyy-MM-dd")</td> <!-- Formatting date -->
+                        <td>@folder.Status</td>
+                        <td white-space: nowrap>
+                            <a asp-controller="PatientFolder" asp-action="EditPatientFolder" asp-route-id="@folder.FolderID" class="btn btn-info my-2">Edit</a>
+                            <a asp-controller="PatientFolder" asp-action="DischargePatient" asp-route-id="@folder.FolderID" class="btn btn-danger">Discharge</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a asp-controller="PatientFolder" asp-action="AddPatientFolder" class="btn btn-success">Add more</a>
+    <br />
+    <div id="notification" style="display:none; padding: 10px;">
+        @if (TempData["msg"] != null)
+        {
+            <div class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    /* Search bar styling */
+    .input-group {
+        max-width: 300px; /* Set a max width for the search bar */
+        margin-bottom: 20px; /* Add margin below the search bar */
+    }
+
+    /* Highlight row on hover */
+    .table tbody tr:hover {
+        background-color: #f1f1f1; /* Light gray background */
+    }
+
+    /* Optional: Make the table more visually appealing */
+    .table {
+        margin-top: 20px;
+    }
+</style>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Show notification if it exists
+            if ($('#notification').text().trim() !== '') {
+                $('#notification').fadeIn().delay(3000).fadeOut(); // Display for 3 seconds
+            }
+        });
+    </script>
+}

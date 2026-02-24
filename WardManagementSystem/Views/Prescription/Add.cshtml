@@ -1,0 +1,170 @@
+﻿@model WardDapperMVC.Models.Domain.Prescription
+
+@{
+    ViewData["Title"] = "Create Prescription";
+}
+<div class="wide-dark-box">
+    <h2>Create Prescription</h2>
+    <hr />
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label asp-for="PatientNumber" class="form-label">Patient Number<span class="text-danger">*</span></label>
+            <div class="d-flex align-items-center">
+                <input asp-for="PatientNumber" type="text" class="form-control me-2" placeholder="Enter Patient Number" style="flex: 1;" />
+                <button type="button" class="btn btn-info" onclick="searchPatient()">Search</button>
+            </div>
+            @*  <span class="text-danger" asp-validation-for="PatientNumber"></span> *@
+        </div>
+    </div>
+    <form asp-action="Add">
+        <input type="hidden" asp-for="PatientId" readonly />
+        <input type="hidden" asp-for="UserID" readonly />
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="FirstName" class="form-label">Patient FirstName<span style="color: red;">*</span></label>
+                <input asp-for="FirstName" type="text" class="form-control" readonly />
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="LastName" class="form-label">Patient LastName<span style="color: red;">*</span></label>
+                <input asp-for="LastName" type="text" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="EmployeeNumber" class="form-label">Employee Number<span class="text-danger">*</span></label>
+                <div class="d-flex align-items-center">
+                    <input asp-for="EmployeeNumber" type="text" class="form-control me-2" placeholder="Enter Employee Number" style="flex: 1;" />
+                    <button type="button" class="btn btn-info" onclick="searchEmployee()">Search</button>
+                </div>
+                @*  <span class="text-danger" asp-validation-for="PatientNumber"></span> *@
+            </div>
+        </div>  
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="DoctorFirstName" class="form-label">Doctor FirstName</label>
+                <input asp-for="DoctorFirstName" type="text" class="form-control" id="DoctorFirstName" readonly />
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="DoctorLastName" class="form-label">Doctor LastName</label>
+                <input asp-for="DoctorLastName" type="text" class="form-control" id="DoctorLastName" readonly />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Date" class="form-label">Date</label>
+                <input asp-for="Date" class="form-control type="date" required />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="ProcessStatus" class="form-label">Status<span style="color: red;">*</span></label>
+                <select asp-for="ProcessStatus" class="form-control">
+                    <option value="">Select Status</option>
+                    <option value="Active">Active</option>
+                    @* <option value="Discharge">Discharge</option> *@
+                </select>
+                <span class="text-danger" asp-validation-for="ProcessStatus"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Script" class="control-label">Script</label>
+                <textarea asp-for="Script" class="form-control" rows="4" required></textarea>
+                <span asp-validation-for="Script" class="text-danger"></span>
+            </div>
+        </div>
+
+        <br />
+        @if (TempData["msg"] != null)
+        {
+            <div class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+
+        <div class="d-flex justify-content-start align-items-center">
+            <button type="submit" class="btn btn-success">Save</button>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-action="DisplayAll" class="my-2 btn btn-primary">Display Records</a>
+        </div>
+    </form>
+</div>
+
+@* This is JS for Searching using PatientNumber *@
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let previousBedID = null;  // Initialize previousBedID as null
+
+        function searchPatient() {
+            var patientNumber = $('#PatientNumber').val().trim();
+            // Validate the format (assuming valid format starts with "PAT" and is followed by digits)
+            var regex = /^PAT\d+$/; // Matches "PAT" followed by one or more digits
+
+            if (patientNumber && regex.test(patientNumber)) {
+                $.ajax({
+                    url: '@Url.Action("GetPatientByNumber", "PatientFolder")',
+                    type: 'GET',
+                    data: { patientNumber: patientNumber },
+                    success: function (data) {
+                        if (data) {
+                            $('#FirstName').val(data.firstName);
+                            $('#LastName').val(data.lastName);
+                            $('#PatientId').val(data.patientID);
+                        } else {
+                            alert('Patient not found');
+                        }
+                    },
+                    error: function () {
+                        alert('Error retrieving patient information');
+                    }
+                });
+            } else {
+                alert('Please enter a valid Patient Number (e.g., PAT01,PAT100)');
+            }
+        }
+
+        function searchEmployee() {
+            var employeeNumber = $('#EmployeeNumber').val().trim();
+            var regex = /^Emp\d+$/; // Matches "Emp" followed by one or more digits
+
+            if (employeeNumber && regex.test(employeeNumber)) {
+                $.ajax({
+                    url: '@Url.Action("GetEmployeeByNumber", "Referrals")',
+                    type: 'GET',
+                    data: { employeeNumber: employeeNumber },
+                    success: function (data) {
+                        if (data) {
+                            $('#DoctorFirstName').val(data.firstName); // Assuming you have a DoctorFirstName input
+                            $('#DoctorLastName').val(data.lastName); // Assuming you have a DoctorLastName input
+                            $('#UserID').val(data.userID); // Assuming you have a hidden UserID input
+                        } else {
+                            alert('Employee not found');
+                        }
+                    },
+                    error: function () {
+                        alert('Error retrieving employee information');
+                    }
+                });
+            } else {
+                alert('Please enter a valid Employee Number (e.g., Emp01, Emp100)');
+            }
+        }
+
+
+        $(document).ready(function () {
+            // Hide validation messages when user starts typing
+            $('input, textarea').on('input', function () {
+                $(this).siblings('.text-danger').hide();
+            });
+        });
+
+    </script>
+}
+

@@ -1,0 +1,157 @@
+﻿@model WardDapperMVC.Models.Domain.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Statistics";
+}
+
+<style>
+    body {
+        background-color: #f8f9fa; /* Light gray background for the page */
+        font-family: 'Arial', sans-serif; /* Clean font style */
+    }
+
+    .statistics-box {
+        background-color: rgba(0, 0, 0, 0.7); /* Dark background for statistics box */
+        color: #f8f9fa; /* Light text for contrast */
+        padding: 2rem; /* Padding around content */
+        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+        margin: 2rem auto; /* Center the box horizontally */
+        max-width: 1200px; /* Max width for content */
+    }
+
+        .statistics-box h1 {
+            font-size: 2.5rem; /* Large heading */
+            margin-bottom: 1.5rem; /* Space below heading */
+            text-align: center; /* Center align the heading */
+            border-bottom: 2px solid #007bff; /* Underline effect */
+            padding-bottom: 0.5rem; /* Space below the border */
+        }
+
+    .stat-item {
+        background-color: #ffffff; /* Light background for items */
+        border-left: 5px solid #6c757d; /* Gray left border for a professional look */
+        padding: 2rem; /* Padding for each statistic */
+        border-radius: 8px; /* Rounded corners */
+        margin-bottom: 1.5rem; /* Space between items */
+        text-align: center; /* Center the text */
+        transition: transform 0.3s; /* Animation for hover */
+    }
+
+        .stat-item:hover {
+            transform: translateY(-3px); /* Subtle lift effect on hover */
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); /* Soft shadow on hover */
+        }
+
+        .stat-item h3, h4 {
+            font-size: 1.6rem; /* Slightly smaller font for headings */
+            margin: 0; /* Remove default margin */
+            color: #343a40; /* Dark color for headings */
+        }
+
+        .stat-item p {
+            margin: 0; /* Remove default margin */
+            font-size: 1.25rem; /* Slightly smaller text for values */
+            font-weight: bold; /* Bold for emphasis */
+            color: #495057; /* Dark gray text for values */
+        }
+</style>
+
+<div class="text-center statistics-box">
+    <h1>S.H.I.F.T Statistics</h1>
+    <div class="row">
+       @*  @if (Model.TotalHospitals > 0)
+        {
+            <div class="col-md-4">
+                <div class="stat-item">
+                    <h3>Total Hospitals</h3>
+                    <p>@Model.TotalHospitals</p>
+                </div>
+            </div>
+        } *@
+        @if (Model.TotalUsers > 0)
+        {
+            <div class="col-md-4">
+                <div class="stat-item">
+                    <h3>Total Users</h3>
+                    <p>@Model.TotalUsers</p>
+                </div>
+            </div>
+        }
+        <div class="col-md-4">
+            <div class="stat-item">
+                <h3>Total Active Users</h3>
+                <p>@Model.TotalActiveUsers</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-item">
+                <h3>Total Inactive Users</h3>
+                <p>@Model.TotalInactiveUsers</p>
+            </div>
+        </div>
+        @if (Model.TotalWards > 0)
+        {
+            <div class="col-md-4">
+                <div class="stat-item">
+                    <h3>Total Wards</h3>
+                    <p>@Model.TotalWards</p>
+                </div>
+            </div>
+        }
+        <div class="col-md-4">
+            <div class="stat-item">
+                <h3>Total Beds</h3>
+                <p>@Model.TotalBeds</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-item">
+                <h3>Average Beds per Ward</h3>
+                <p>@Model.AverageBedsPerWard</p>
+            </div>
+        </div>
+        @if (Model.TotalConditions > 0)
+        {
+            <div class="col-md-4">
+                <div class="stat-item">
+                    <h3>Total Conditions</h3>
+                    <p>@Model.TotalConditions</p>
+                </div>
+            </div>
+        }
+        <div class="col-md-4">
+            <div class="stat-item">
+                <h3>Total Consumables</h3>
+                <p>@Model.TotalConsumables</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-item">
+                <h3>Total Medications</h3>
+                <p>@Model.TotalMedications</p>
+            </div>
+        </div>
+        <!-- Loop through conditions to display each -->
+        <div class="col-md-12">
+            <h3>Conditions</h3>
+            @if (Model.Conditions.Any())
+            {
+                foreach (var condition in Model.Conditions)
+                {
+                    <div class="stat-item">
+                        <h4>@condition.Conditions</h4>
+                        <p>@condition.Count</p>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>No conditions available.</p>
+            }
+        </div>
+    </div>
+</div>
+
+
+

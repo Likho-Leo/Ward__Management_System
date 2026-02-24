@@ -1,0 +1,70 @@
+﻿@model IEnumerable<WardDapperMVC.Models.Domain.Nurse.DoctorAdvice>
+@{
+    ViewData["Title"] = "View Doctor Notes";
+}
+<div class="wide-dark-box">
+    <h1 class="text-center">DOCTOR NOTES</h1>
+    <hr style="border: 1px solid white; width: 100%; text-align: center;" />
+    <p>
+        Welcome to the Doctor Instructions for Patients section of our Ward Management System. This feature is designed to empower patients with clear and detailed instructions provided by their doctors.
+    </p>
+    <br />
+
+    <form class="example" method="get" action="@Url.Action("Search", "DoctorAdvice")">
+        <input type="text" placeholder="Search by Patient No" name="searchTerm">
+        <button type="submit"><i class="fa fa-search"></i></button>
+        <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+        <a href="~/DoctorAdvice/DisplayAllRecords" class="btn btn-primary">Clear Search</a>
+    </form>
+    <!-- Display the error message -->
+    @if (ViewData.ModelState["SearchError"] != null)
+    {
+        <div class="text-danger">
+            @ViewData.ModelState["SearchError"].Errors[0].ErrorMessage
+        </div>
+    }
+
+    <div class="my-2">
+        <div style="overflow-x:auto;">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Patient Number</th>
+                        <th>Patient First Name</th>
+                        <th>Patient Last Name</th>
+                        <th>Note</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <td>Employee Number</td>
+                        <th>Doctor First Name</th>
+                        <th>Doctor Last Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="table-light">
+                    @foreach (var doctorAdvice in Model)
+                    {
+                        <tr>
+                            <td>@doctorAdvice.PatientNumber</td>
+                            <td>@doctorAdvice.PatientFirstName</td>
+                            <td>@doctorAdvice.PatientLastName</td>
+                            <td>@doctorAdvice.DoctorNote</td>
+                            <td>@doctorAdvice.DischargeStatus</td>
+                            <td white-space: nowrap>@doctorAdvice.DateOfVisit.ToString("yyyy-MM-dd")</td>
+                            <td>@doctorAdvice.EmployeeNumber</td>
+                            <td>@doctorAdvice.DoctorFirstName</td>
+                            <td>@doctorAdvice.DoctorLastName</td>
+                            <td><a href="~/DoctorAdvice/ViewDocAdvice?id=@doctorAdvice.InstructionID" class="btn btn-primary">View</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <div class="d-flex justify-content-start align-items-center">
+            <a asp-controller="DoctorAdvice" asp-action="DisplayInstructions" class="btn btn-primary">View Instructions</a>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-controller="Nurse" asp-action="Home" class="btn btn-primary">Home</a>
+        </div>
+    </div>
+</div>

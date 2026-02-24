@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center wide-dark-box">
+    <h1 class="display-4">HOME</h1>
+    <hr style="border: 1px solid white; width: 100%; text-align: center;" />
+    <p class="lead">System for Healthcare Integration and Facility Tracking (SHIFT)</p>
+    <p>
+        Welcome to the Patient Care module of SHIFT, tailored specifically for our skilled nursing professionals. 
+        Our mission is to equip you with intuitive tools and resources, ensuring seamless care delivery and enhanced patient outcomes.
+        
+    </p>
+    <p>Navigate through the options below to access the features and services designed to support you in delivering top-tier care to your patients.</p>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-3">
+            <a asp-controller="PatientVital" asp-action="DisplayAll" class="btn btn-outline-light btn-lg btn-block">
+                <img src="@Url.Content("~/Images/Patient_Care/patient_vitals_icon.svg")" alt="Patient Vitals" class="img-fluid">
+                Patient Vitals
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a asp-controller="MedAdministration" asp-action="DisplayAllRecords" class="btn btn-outline-light btn-lg btn-block">
+                <img src="@Url.Content("~/Images/Patient_Care/medication_icon.svg")" alt="Administer Medication" class="img-fluid">
+                Administer Medication
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a asp-controller="TreatPatient" asp-action="DisplayAllRecords" class="btn btn-outline-light btn-lg btn-block">
+                <img src="@Url.Content("~/Images/Patient_Care/treatment_icon.svg")" alt="Treat Patient" class="img-fluid">
+                Treat Patient
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a asp-controller="DoctorAdvice" asp-action="DisplayAllRecords" class="btn btn-outline-light btn-lg btn-block">
+                <img src="@Url.Content("~/Images/Patient_Care/doctor_instructions_icon.svg")" alt="Doctor Instructions" class="img-fluid">
+                Doctor Instructions
+            </a>
+        </div>
+    </div>
+</div>

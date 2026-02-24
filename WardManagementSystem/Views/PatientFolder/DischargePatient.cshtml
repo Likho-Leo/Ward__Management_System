@@ -1,0 +1,138 @@
+﻿@model WardDapperMVC.Models.Domain.PatientFolder
+@{
+    ViewData["Title"] = "Discharge Patient";
+    var dischargeModel = ViewBag.DischargeModel as WardDapperMVC.Models.Domain.DischargePatient;
+}
+
+<div class="wide-dark-box">
+    <h2 class="text-center">DISCHARGE PATIENT</h2>
+    <br />
+    <p>
+        Welcome to the Discharge Patient section of our Ward Management System,
+        where you can efficiently process patient discharges and update their status.
+    </p>
+    <br />
+
+    <form asp-action="DischargePatient" method="post">
+        <!-- Hidden field to store the ID -->
+        <input type="hidden" asp-for="FolderID" />
+        <input type="hidden" asp-for="PatientId" />
+        <input type="hidden" asp-for="BedID" />
+        <input type="hidden" asp-for="WardId" />
+        <input type="hidden" asp-for="AdmitDate" />
+
+        @* <div class="mb-3">
+        <label asp-for="PatientNumber" class="form-label">Patient Number</label>
+        <input asp-for="PatientNumber" type="text" class="form-control" readonly />
+        <span class="text-danger" asp-validation-for="PatientNumber"></span>
+        </div> *@
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="FirstName" class="form-label">First Name</label>
+                <input asp-for="FirstName" type="text" class="form-control" readonly />
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="LastName" class="form-label">Last Name</label>
+                <input asp-for="LastName" type="text" class="form-control" readonly />
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="AdmitDate" class="form-label">Admit Date</label>
+            <input asp-for="AdmitDate" type="text" class="form-control" readonly />
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="WardName" class="form-label">Ward Name</label>
+            <input asp-for="WardName" type="text" class="form-control" readonly />
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="BedNo" class="form-label">Bed Number</label>
+            <input asp-for="BedNo" type="text" class="form-control" readonly />
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label">Discharge Date</label>
+            <input type="date" name="dischargeDate" value="@dischargeModel?.DischargeDate.ToString("yyyy-MM-dd")" class="form-control" required />
+        </div>
+
+        <br />
+        <div class="alert alert-warning" >
+            Are you sure you want to discharge this patient?
+        </div>
+
+        @if (TempData["msg"] != null)
+        {
+            <div class="mb-3">
+                @TempData["msg"]
+            </div>
+        }
+
+        <br />
+        <div class="d-flex justify-content-start align-items-center">
+            <button type="submit" class="btn btn-danger">Confirm Discharge</button>          
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-controller="PatientFolder" asp-action="DisplayAllPatientFolder" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@* <h3>Discharge Patient</h3>
+
+<a href="/PatientFolder/DisplayAllPatientFolder" class="btn btn-primary my-2">Back to List</a>
+
+<form asp-action="DischargePatient" method="post">
+    <!-- Hidden field to store the ID -->
+    <input type="hidden" asp-for="FolderID" />
+    <input type="hidden" asp-for="PatientId" />
+    <input type="hidden" asp-for="BedID" />
+    <input type="hidden" asp-for="WardId" />
+    <input type="hidden" asp-for="AdmitDate" />
+
+    <div class="col-md-4">
+        <label asp-for="PatientNumber" class="form-label">Patient Number</label>
+        <input asp-for="PatientNumber" type="text" class="form-control" readonly />
+    </div>
+
+    <div class="col-md-4">
+        <label asp-for="FirstName" class="form-label">First Name</label>
+        <input asp-for="FirstName" type="text" class="form-control" readonly />
+    </div>
+
+    <div class="col-md-4">
+        <label asp-for="LastName" class="form-label">Last Name</label>
+        <input asp-for="LastName" type="text" class="form-control" readonly />
+    </div>
+
+    <div class="col-md-4">
+        <label asp-for="AdmitDate" class="form-label">Admit Date</label>
+        <input asp-for="AdmitDate" type="text" class="form-control" readonly />
+    </div>
+
+    <div class="col-md-4">
+        <label asp-for="WardName" class="form-label">Ward Name</label>
+        <input asp-for="WardName" type="text" class="form-control" readonly />
+    </div>
+
+    <div class="col-md-4">
+        <label asp-for="BedNo" class="form-label">Bed Number</label>
+        <input asp-for="BedNo" type="text" class="form-control" readonly />
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Discharge Date</label>
+        <input type="date" name="dischargeDate" value="@dischargeModel?.DischargeDate.ToString("yyyy-MM-dd")" class="form-control" required />
+    </div>
+
+    <div class="alert alert-warning" class="col-md-4">
+        Are you sure you want to discharge this patient?
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-danger">Confirm Discharge</button>
+        <a href="/PatientFolder/DisplayAllPatientFolder" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+ *@

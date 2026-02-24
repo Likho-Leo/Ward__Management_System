@@ -1,0 +1,106 @@
+﻿@using WardDapperMVC.Models.Domain.Nurse
+@model TreatPatient
+@{
+    ViewData["Title"] = "Delete Treatment";
+}
+
+<div class="wide-dark-box">
+    <h1 class="text-center">Delete Confirmation</h1>
+    <hr style="border: 1px solid white; width: 100%; text-align: center;" />
+    <p>Are you sure you want to delete this record?</p>
+    <br />
+    <form method="post" asp-action="DeleteTreatment" asp-controller="TreatPatient">
+        <div class="form-group">
+            <input type="hidden" name="id" value="@Model.TreatPatientID" />
+            <input type="hidden" name="id" value="@Model.PatientId" />
+            <div class="row">
+                @* Patient First Name and Body Temperature *@
+                <div class="col-sm-6">
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.PatientFirstName)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.PatientFirstName)
+                        </dd>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.NurseFirstName)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.NurseFirstName)
+                        </dd>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                @* Patient Last Name and Body Weight *@
+                <div class="col-sm-6">
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.PatientLastName)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.PatientLastName)
+                        </dd>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.NurseLastName)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.NurseLastName)
+                        </dd>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                @* Blood Pressure and Date *@
+                <div class="col-sm-6">
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.TreatmentType)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.TreatmentType)
+                        </dd>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            @Html.DisplayNameFor(model => model.EmployeeNumber)
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Html.DisplayFor(model => model.EmployeeNumber)
+                        </dd>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <dt class="col-sm-6">
+                            Date
+                        </dt>
+                        <dd class="col-sm-6">
+                            @Model.Date.ToString("dd/MM/yyyy")
+                        </dd>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+    </form>
+    <form method="post" asp-action="DeleteTreatment" asp-route-id="@Model.TreatPatientID">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+        <a href="@Url.Action("DisplayAllRecords")" class="btn btn-success">Cancel</a>
+    </form>
+</div>

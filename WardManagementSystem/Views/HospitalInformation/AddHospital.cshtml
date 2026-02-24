@@ -1,0 +1,90 @@
+﻿@model WardDapperMVC.Models.Domain.HospitalInformation
+@{
+    ViewData["Title"] = "Add Hospital";
+}
+
+<div class="wide-dark-box">
+    <h2 class="text-center">RECORD HOSPITAL</h2>
+    <br />
+    <p>
+        Welcome to the Record Hospital Information section of our Ward Management System.
+        This feature is designed to help administrators accurately document and manage essential hospital information.
+    </p>
+
+    <form asp-action="AddHospital" method="post" enctype="multipart/form-data">
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="HospitalName" class="form-label">Hospital Name<span style="color: red;">*</span></label>
+                <input asp-for="HospitalName" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="HospitalName"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Slogan" class="form-label">Slogan<span style="color: red;">*</span></label>
+                <input asp-for="Slogan" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="Slogan"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Email" class="form-label">Email Address<span style="color: red;">*</span></label>
+                <input asp-for="Email" type="email" class="form-control">
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="TellNO" class="form-label">Telephone Number<span style="color: red;">*</span></label>
+                <input asp-for="TellNO" type="tel" class="form-control" />
+                <span class="text-danger" asp-validation-for="TellNO"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-8">
+                <label asp-for="LogoFile" class="form-label">Logo<span style="color: red;">*</span></label>
+                <input asp-for="LogoFile" type="file" class="form-control">
+                <span class="text-danger" asp-validation-for="LogoFile"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-8">
+                <label asp-for="Address" class="form-label">Address<span style="color: red;">*</span></label>
+                <textarea class="form-control" asp-for="Address" rows="3"></textarea>
+                <span class="text-danger" asp-validation-for="Address"></span>
+            </div>
+        </div>
+
+        <br />
+        @if (TempData["msg"] != null)
+        {
+            <div id="notification" class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+
+        <div class="d-flex justify-content-start align-items-center">
+            <button type="submit" class="btn btn-success">Save</button>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-controller="HospitalInformation" asp-action="DisplayAllHospital" class="my-2 btn btn-primary">Display Records</a>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Hide validation messages when user starts typing
+            $('input, textarea').on('input', function () {
+                $(this).siblings('.text-danger').hide();
+            });
+        });
+        $(document).ready(function () {
+            // Show notification if it exists
+            if ($('#notification').text().trim() !== '') {
+                $('#notification').fadeIn().delay(3000).fadeOut(); // Display for 3 seconds
+            }
+        });
+    </script>
+}

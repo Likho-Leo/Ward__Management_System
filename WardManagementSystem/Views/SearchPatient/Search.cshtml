@@ -1,0 +1,66 @@
+﻿@model WardDapperMVC.Models.Domain.PatientSearchViewModel
+
+<div class="wide-dark-box">
+    <h2>Track Admitted Patients</h2>
+    <hr />
+    <p>
+        Welcome to the report section of our Ward Management System.
+        Here, you can efficiently generate reports for patient admissions within a specified date range, allowing you to effectively monitor trends and manage resources for those particular days.
+    </p>
+    <form asp-action="Search" method="post">
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="StartDate" class="form-label">Start Date:</label>
+                <input asp-for="StartDate" class="form-control" type="date" />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="EndDate" class="form-label">End Date:</label>
+                <div class="d-flex align-items-center">
+                    <input asp-for="EndDate" class="form-control me-2" type="date" />
+                    <button type="submit" class="btn btn-info">Search</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    @if (Model.Patients.Any())
+    {
+        <h4>Patient Admission Summary</h4>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Folder ID</th>
+                    <th>Patient Name</th>
+                    <th>Admit Date</th>
+                    <th>Status</th>
+                    <th>Ward Name</th>
+                    <th>Bed No</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                @foreach (var patient in Model.Patients)
+                {
+                    <tr>
+                        <td>@patient.FolderID</td>
+                        <td>@($"{patient.FirstName} {patient.LastName}")</td>
+                        <td>@patient.AdmitDate.ToShortDateString()</td>
+                        <td>@patient.Status</td>
+                        <td>@patient.WardName</td>
+                        <td>@patient.BedNo</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <form asp-action="GeneratePdf" method="post">
+            <input type="hidden" name="startDate" value="@Model.StartDate" />
+            <input type="hidden" name="endDate" value="@Model.EndDate" />
+            <button type="submit" class="btn btn-info my-2">Generate PDF</button>
+        </form>
+    }
+</div>
+
+
+

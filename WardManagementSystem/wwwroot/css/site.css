@@ -1,0 +1,313 @@
+body {
+    background: linear-gradient(to bottom, #092e48 0%, #0c3242 100%);
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    /* flex-direction: column;*/
+}
+
+
+header, footer {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+footer {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px 0;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 20px; /* Add this to create space above the footer */
+}
+
+.navbar {
+    background-color: rgb(0, 0, 0, 0.5);
+    border: none;
+}
+
+    .navbar .nav-link {
+        color: white !important;
+        font-weight: bold;
+    }
+
+        .navbar .nav-link:hover {
+            color: #b5b5b5 !important;
+        }
+
+    .navbar .navbar-brand {
+        color: white !important;
+        font-weight: bold;
+    }
+
+.text-center h1 {
+    font-weight: bold;
+}
+
+/* Ensure all buttons have the same width and height */
+.btn-outline-light {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Takes full width of the column */
+    height: 150px; /* Set a fixed height for the buttons */
+    margin-top: 10px;
+}
+
+/*.btn-outline-light img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;*/ /* Adjust spacing between the image and the text */
+/*}*/
+
+.col-md-3 {
+    margin-bottom: 20px; /* Add some space below each button in case the content wraps */
+}
+
+@media (min-width: 768px) {
+    .col-md-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+}
+
+
+.btn-outline-light:hover {
+    background-color: dimgray;
+    color: #092e48;
+    border-color: white;
+}
+
+
+
+.img-fluid {
+    width: 100px;
+    height: 100px;
+    /* margin-top: 10px;*/
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+h3, p {
+    color: white;
+}
+
+/* Additional Navbar and Background Styling */
+.navbar-text {
+    color: #ffffff;
+}
+
+main {
+    flex-grow: 1; /* Ensures the main content takes up available space */
+}
+
+.wide-dark-box {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: stretch; /* Let the box adjust to the size of its content */
+    margin: auto; /* Centers the box horizontally */
+    padding: 10px; /* Add padding for better aesthetics */
+    border-radius: 8px; /* Optional: adds rounded corners */
+}
+
+/* Ensure the table fits inside the box and aligns properly */
+table {
+    width: auto; /* Table adjusts based on content */
+    margin: 0 auto; /* Center the table inside the box */
+}
+
+td, th {
+    padding: 10px; /* Adjust cell padding for proper spacing */
+    border: 1px solid black; /* Optional: border styling */
+}
+
+th {
+    white-space: nowrap;
+    Prevents text wrapping
+}
+
+
+
+.wide-dark-box-login {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 35%; /* Adjust the width as needed */
+    /*max-width: 1200px;*/ /* Optional: to limit the maximum width */
+    margin: 0 auto; /* Centers the box */
+    padding: 10px; /* Optional: adds padding inside the box */
+    text-align: left;
+}
+
+/* Exclude the logout button from these styles */
+.navbar .btn-outline-light {
+    width: auto;
+    height: auto;
+    display: inline-block; /* Default button layout */
+    margin-top: 0; /* Reset margin */
+}
+
+/* Add this CSS to your stylesheet or within a <style> block in the <head> section */
+
+/*.login-page {
+    background-image: url('/Images/login_background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}*/
+
+
+.text-center {
+    text-align: center;
+    Ensures text is centered
+}
+
+/* Optional: Add spacing between label and input */
+.mb-3 {
+    margin-bottom: 1rem; /* Adjust spacing if needed */
+}
+
+.form-group.position-relative {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffffff; /* Color of the eye icon */
+}
+
+    .toggle-password:hover {
+        color: #b5b5b5; /* Color when hovering over the icon */
+    }
+/* Three columns side by side */
+.column {
+    float: left;
+    width: 25%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+}
+
+/* Display the columns below each other instead of side by side on small screens */
+@media screen and (max-width: 650px) {
+    .column {
+        width: 100%;
+        display: block;
+    }
+}
+
+/* Add some shadows to create a card effect */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Some left and right padding inside the container */
+.container {
+    padding: 0 16px;
+}
+
+    /* Clear floats */
+    .container::after, .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+.title {
+    color: grey;
+}
+
+.button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+}
+
+    .button:hover {
+        background-color: #555;
+    }
+/* Style the search field */
+form.example input[type=text] {
+    padding: 5px;
+    /*font-size: 17px;*/
+    border: 1px solid grey;
+    float: left;
+    /*width: 22%;*/
+    background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.example button {
+    float: left;
+    width: 5%;
+    padding: 5px;
+    background: #555;
+    color: white;
+    /*font-size: 17px;*/
+    border: 1px solid grey;
+    border-left: none; /* Prevent double borders */
+    cursor: pointer;
+}
+
+    form.example button:hover {
+        background: #0b7dda;
+    }
+
+/* Clear floats */
+form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+input[type="password"]::-ms-reveal {
+    display: none;
+}
+
+/* New*/
+.badge-danger {
+    background-color: red; /* Customize the color */
+    color: white;
+    border-radius: 50%;
+    padding: 0.2em 0.5em;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.nav-link {
+    padding: 10px 15px; /* Adjust top/bottom and left/right padding */
+    margin: 0 5px; /* Adjust left/right margin for spacing between links */
+    color: white; /* Example color */
+    text-decoration: none; /* Remove underline */
+}
+
+    .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* Optional hover effect */
+    }
+
+
+.navbar-text img {
+    width: 50px; /* Adjust width as needed */
+    height: 50px; /* Adjust height as needed */
+}
+
+.navbar-text span {
+    font-size: 16px; /* Adjust font size to complement the icon */
+    margin-left: 5px; /* Space between image and text */
+    margin-right: 5px;

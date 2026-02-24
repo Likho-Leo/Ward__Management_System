@@ -1,0 +1,83 @@
+﻿@model WardDapperMVC.Models.Domain.Consumable
+@{
+    ViewData["Title"] = "Add Consumable";
+}
+
+<div class="wide-dark-box">
+    <h2 class="text-center">RECORD CONSUMABLES</h2>
+    <br />
+    <p>
+        Welcome to the Manage Consumables section of our Ward Management System.
+        This feature is designed to assist administrators in effectively managing and tracking the inventory of medical consumables within our healthcare facility.
+    </p>
+
+    @* <div class="col-md-4">
+    <label for="EmployeeNumber" class="form-label">Employee Number</label>
+    <input type="text" id="EmployeeNumber" class="form-control" />
+    <button type="button" id="searchButton" class="btn btn-secondary mt-2">Search</button>
+    </div> *@
+    <div class="col-md-4">
+        <label asp-for="EmployeeNumber" class="form-label">Employee Number<span class="text-danger">*</span></label>
+        <div class="d-flex align-items-center">
+            <input asp-for="EmployeeNumber" type="text" class="form-control me-2" placeholder="Enter Employee Number" style="flex: 1;" />
+            <button type="button" id="searchButton" class="btn btn-info" onclick="searchPatient()">Search</button>
+        </div>
+    </div>
+    <br />
+    <div id="formContainer">
+        @await Html.PartialAsync("_ConsumableFormPartial", Model)
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#searchButton').click(function () {
+                const employeeNumber = $('#EmployeeNumber').val().trim();
+
+                // Regular expression to check for "Emp" followed by digits
+                const employeeNumberPattern = /^Emp\d+$/;
+
+                // Validate input format
+                if (employeeNumberPattern.test(employeeNumber)) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetManagerDetails", "Consumable")',
+                        data: { employeeNumber: employeeNumber },
+                        beforeSend: function () {
+                            // Show a loading indicator (optional)
+                            $('#loadingIndicator').show();
+                        },
+                        success: function (data) {
+                            $('#formContainer').html(data);
+                        },
+                        error: function (jqXHR) {
+                            let message = 'An error occurred';
+                            if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
+                                message = jqXHR.responseJSON.message; // Use server message if available
+                            }
+                            alert(message);
+                        },
+                        complete: function () {
+                            // Hide the loading indicator (optional)
+                            $('#loadingIndicator').hide();
+                        }
+                    });
+                } else {
+                    alert('Please enter a valid Employee Number (e.g., Emp01, Emp23).');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            // Hide validation messages when user starts typing
+            $('input, textarea').on('input', function () {
+                $(this).siblings('.text-danger').hide();
+            });
+        });
+    </script>
+}
+

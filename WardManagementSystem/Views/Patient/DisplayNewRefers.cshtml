@@ -1,0 +1,49 @@
+﻿@model IEnumerable<WardDapperMVC.Models.Domain.PatientReferrals>
+@{
+    ViewData["Title"] = "DisplayAll";
+}
+
+<div class="wide-dark-box">
+    <h1 class="text-center">MANAGE NEW REFERRALS</h1>
+    <br />
+    <p>
+        Welcome to our patient management system.
+        Begin by admitting new patients, updating their information, and finalizing the discharge process. For any assistance, our team is here to help.
+    </p>
+    <div class="my-2">
+
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Patient FirstName</th>
+                    <th>Patient LastName</th>
+                    <th>Docctor FullName</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                @foreach (var patient in Model)
+                {
+                    <tr>
+                        <td>@patient.PatientFirstName</td>
+                        <td>@patient.PatientLastName</td>
+                        <td>@patient.LastName @patient.FirstName </td>
+                        <td>@patient.Date.ToString("yyyy-MM-dd")</td> <!-- Formatting date -->
+                        <td>@patient.Status</td>
+                        <td white-space: nowrap>
+                            <a asp-controller="Patient" asp-action="AddPatient"
+                               asp-route-id="@patient.ReferPatientID"
+                               asp-route-firstName="@patient.PatientFirstName"
+                               asp-route-lastName="@patient.PatientLastName"
+                               class="btn btn-success">Admit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a asp-controller="Patient" asp-action="DisplayAllPatient" class="btn btn-info my-2">Admitted Patients</a>
+</div>
+

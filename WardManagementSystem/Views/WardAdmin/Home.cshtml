@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+    <div class=" text-center wide-dark-box">
+      <h1 class="display-4">Home</h1>
+                <p class="lead">System for Healthcare Integration and Facility Tracking</p>
+                <p>
+                    Welcome to the Patient Management Subsystem! Your comprehensive solution for efficient and effective patient care. From registration to discharge, we're here to streamline every step of the process, ensuring smooth operations and optimal outcomes.
+                        Our Patient Management Subsystem offers a seamless and intuitive interface, with user-friendly navigation and seamless integration, you can focus on providing exceptional care without the hassle of complex systems.
+                </p>
+                <p>
+                    Use the buttons below to navigate to your desired page.
+                </p>
+                <div class="row justify-content-center mt-5">
+                    <div class="col-md-3">
+                             <a asp-controller="Patient" asp-action="DisplayAllPatient" class="btn btn-outline-light btn-lg btn-block">
+                             <img src="~/Images/Patient_Management/AdmitPtient.svg" alt="Admit Patient" class="img-fluid">
+                               Admit Patient
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                            <a asp-controller="PatientFolder" asp-action="DisplayAllPatientFolder" class="btn btn-outline-light btn-lg btn-block">
+                            <img src="~/Images/Patient_Management/OpenFolder.svg" alt="Open Patient Folder" class="img-fluid">
+                             Open Patient Folder
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                            <a asp-controller="PatientMovement" asp-action="DisplayAllMovements" class="btn btn-outline-light btn-lg btn-block">
+                            <img src="~/Images/Patient_Management/monitorMovement.svg" alt="Monitor Patient Movement" class="img-fluid">
+                                Monitor Patient Movement
+                        </a>
+                    </div>
+
+                    <!--Change the actions -->
+                    <div class="col-md-3">
+                            <a asp-controller="Patient" asp-action="TrackVisit" class="btn btn-outline-light btn-lg btn-block">
+                            <img src="~/Images/Patient_Management/DocVisit.svg" alt="Track Doctor Visit" class="img-fluid">
+                            Track Doctor Visit
+                        </a>
+                    </div>
+                                 
+                </div>
+    </div>
+
+                         
+                          

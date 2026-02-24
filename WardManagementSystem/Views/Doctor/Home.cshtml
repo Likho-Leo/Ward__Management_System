@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class=" text-center wide-dark-box">
+    <h1 class="display-4">Welcome to S.H.I.F.T DOCTORS PORTAL</h1>
+    <p class="lead">Your Hub for Efficient Patient Management</p>
+    <p>
+        The Doctor Portal is designed to streamline your patient care and administrative tasks with ease. Access comprehensive patient records, manage appointments, and review diagnostic information—all from a single, intuitive platform. With real-time updates and advanced features, this portal empowers you to focus on delivering exceptional care, while we handle the complexities of patient management. Explore its features to enhance your practice's efficiency and effectiveness.
+        <br />
+        Use the buttons below to navigate to your desired page.
+    </p>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-3">
+            <a asp-controller="Referrals" asp-action="DisplayAll" class="btn btn-outline-light btn-lg btn-block">
+                <img src="~/Images/Doctor/Referrals.png" alt="Manage Referrals" class="img-fluid">
+                Referrals
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a asp-controller="Event" asp-action="Index" class="btn btn-outline-light btn-lg btn-block">
+                <img src="~/Images/Doctor/VisitSchedule.png" alt="Manage Schedule" class="img-fluid">
+                Calendar
+            </a>
+        </div>
+      
+        <div class="col-md-3">
+            <a asp-controller="Prescription" asp-action="DisplayAll" class="btn btn-outline-light btn-lg btn-block">
+                <img src="~/Images/Doctor/Prescriptions.png" alt="Prescriptions" class="img-fluid">
+                Prescriptions
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a asp-controller="Instruction" asp-action="DisplayAll" class="btn btn-outline-light btn-lg btn-block">
+                <img src="~/Images/Doctor/DoctorsInstructions.png" alt="Instructions" class="img-fluid">
+                Instructions
+            </a>
+        </div>
+       @*  <div class="col-md-3">
+            <a href="/visitPatient/DisplayAll" class="btn btn-outline-light btn-lg btn-block">
+                <img src="~/Images/Doctor/VisitPatient.png" alt="Visit Patient" class="img-fluid">
+                Visit Patient
+            </a>
+        </div> *@
+        @*    <div class="col-md-3">
+        <a href="/Medication/DisplayAllMed" class="btn btn-outline-light btn-lg btn-block">
+        <img src="~/Images/Admin/manage_medication.svg" alt="Manage Medication" class="img-fluid">
+        Manage Medication
+        </a>
+        </div> *@
+
+    </div>
+</div>

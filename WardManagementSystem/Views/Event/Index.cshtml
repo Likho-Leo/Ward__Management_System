@@ -1,0 +1,91 @@
+﻿@model IEnumerable<WardDapperMVC.Model.Domain.VisitSchedule>
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>FollowUpAppointmentDate</th>
+            <th>Doctor</th>
+            <th>Patient</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var visit in Model)
+        {
+            <tr>
+                <td>@visit.Date.ToShortDateString()</td>
+                <td>@visit.FollowUpAppointmentDate.ToShortDateString()</td>
+                <td>@visit.DoctorFullName</td>
+                <td>@visit.PatientFullName</td> <!-- Ensure you fetch and assign PatientFullName in your controller -->
+                <td>
+                    <a asp-action="Details" asp-route-id="@visit.ScheduleID" class="btn btn-info">Details</a>
+                   @*  <a asp-action="Edit" asp-route-id="@visit.ScheduleID" class="btn btn-warning">Edit</a> *@
+                    <a asp-action="Delete" asp-route-id="@visit.ScheduleID" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="mt-3">
+  @*   <a href="@Url.Action("Create", "Event")" class="btn btn-primary">Create Event</a> *@
+</div>
+
+<style>
+    .table {
+        color: white; /* Change text color for table cells */
+    }
+
+    .table thead th {
+        background-color: #003366; /* Darker background for the header */
+        color: white; /* White text for header */
+    }
+
+    .table tbody td {
+        background-color: rgba(0, 0, 0, 0.5); /* Optional: Dark background for table rows */
+        color: white; /* White text for table cells */
+    }
+
+    .table tbody tr:hover {
+        background-color: rgba(0, 0, 0, 0.7); /* Darker background on row hover */
+    }
+</style>
+
+<!-- Calendar Section -->
+<h3>Upcoming Visits</h3>
+<div id='calendar' style="width: 100%; height: 300px;"></div>
+
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js"></script>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: [
+        @foreach (var visit in Model)
+        {
+            var startDate = visit.FollowUpAppointmentDate.ToString("yyyy-MM-dd");
+            var NextDate = visit.FollowUpAppointmentDate;// Adjust as needed
+            <text>{
+                            title: '@visit.DoctorFullName - @visit.PatientFullName',
+                            start: '@startDate',
+                            end: '@NextDate'
+                        }, </text>
+        }
+                        ],
+                editable: false,
+                eventClick: function (info) {
+                    // Redirect to the event details page if needed
+                }
+            });
+            calendar.render();
+        });
+    </script>
+}
+

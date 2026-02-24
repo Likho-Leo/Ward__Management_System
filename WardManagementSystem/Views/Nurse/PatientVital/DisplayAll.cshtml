@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "View Patient Vitals";
+}
+@model IEnumerable<WardDapperMVC.Models.Domain.Nurse.PatientVital>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="wide-dark-box">
+    <h1 class="text-center">MANAGE PATIENT VITALS</h1>
+    <hr style="border: 1px solid white; width: 100%; text-align: center;" />
+    <p>
+        Welcome to the Patient Vitals section. This platform is designed to support you in delivering exceptional care to patients. 
+        Here, you can easily monitor and manage vital health information, ensuring that each patient receives timely and accurate attention.
+    </p>
+    <br />
+    <form class="example" method="get" action="@Url.Action("Search", "PatientVital")">
+        <input type="text" placeholder="Search by Patient No" name="searchTerm">
+        <button type="submit"><i class="fa fa-search"></i></button>
+        <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+        <a href="~/PatientVital/DisplayAll" class="btn btn-primary">Clear Search</a>
+    </form>
+    <!-- Display the error message -->
+    @if (ViewData.ModelState["SearchError"] != null)
+    {
+        <div class="text-danger">
+            @ViewData.ModelState["SearchError"].Errors[0].ErrorMessage
+        </div>
+    }
+    <div class="my-2">
+        <div style="overflow-x:auto;">
+            <table class="table table-striped ">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Patient No</th>
+                        <th>Patient First Name</th>
+                        <th>Patient Last Name</th>
+                        <th>Blood Pressure</th>
+                        <th>Blood Oxygen</th>
+                        <th>Blood Glucose Level</th>
+                        <th>Pulse Rate</th>
+                        <th>Respiration Rate</th>
+                        <th>Body Temperature</th>
+                        <th>Weight</th>
+                        <th>Date</th>
+                        <th>Employee No</th>
+                        <th>Nurse First Name</th>
+                        <th>Nurse Last Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="table-light">
+                    @foreach (var patientVital in Model)
+                    {
+                        <tr>
+                            <td>@patientVital.PatientNumber</td>
+                            <td>@patientVital.PatientFirstName</td>
+                            <td>@patientVital.PatientLastName</td>
+                            <td>@patientVital.BloodPressure</td>
+                            <td>@patientVital.BloodOxygen</td>
+                            <td>@patientVital.BloodGlucoseLvl%</td>
+                            <td>@patientVital.PulseRate</td>
+                            <td>@patientVital.RespirationRate</td>
+                            <td>@patientVital.BodyTemp</td>
+                            <td>@patientVital.Weight</td>
+                            <td white-space: nowrap>@patientVital.Date.ToString("dd-MM-yyyy")</td>
+                            <td>@patientVital.EmployeeNumber</td>
+                            <td>@patientVital.NurseFirstName</td>
+                            <td>@patientVital.NurseLastName</td>
+                            <td white-space: nowrap>
+                                <a href="~/PatientVital/UpdateVital?id=@patientVital.VitalId" class="btn btn-success">Edit</a>
+                                <a href="~/PatientVital/ViewDeleteVital?id=@patientVital.VitalId" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+            <div class="d-flex justify-content-start align-items-center">
+                <a asp-controller="PatientVital" asp-action="RecordVital" class="btn btn-primary">Add More</a>
+                <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+                <a asp-controller="Nurse" asp-action="Home" class="btn btn-primary">Home</a>
+            </div>
+    </div>
+</div>
+
+@* @section Scripts {
+    <script>
+        document.getElementById('restoreTable').addEventListener('click', function () {
+            window.location.href = '~/Views/Nurse/PatientVital/DisplayAll.cshtml'; // Reloads the page without any search filters
+        });
+    </script>
+} *@

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<WardDapperMVC.Models.Domain.Prescription>
+@{
+    ViewData["Title"] = "Prescriptions List";
+}
+<div class="wide-dark-box">
+    <h2 class="text-center">MANAGE PATIENT Prescriptions</h2>
+    <br />
+    <p>
+        Welcome to the Manage Patient Prescriptions section of our Ward Management System,
+        where you can seamlessly write a new prescriptions for a patient.
+    </p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Doctor Name</th>
+                    <th>Patient Name</th>
+                    <th>Script</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.DoctorFirstName @item.DoctorLastName</td>
+                        <td>@item.FirstName @item.LastName</td>
+                        <td>@item.Script</td>
+                        <td>@item.Date</td> <!-- Format date for readability -->
+                        <td>@item.ProcessStatus</td>
+
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.PrescriptionID" class="btn btn-info">Details</a>
+                            <a asp-action="Edit" asp-route-id="@item.PrescriptionID" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.PrescriptionID" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a asp-action="Add" class="btn btn-success">Create New Prescription</a>
+    <br />
+    <div id="notification" style="display:none; padding: 10px;">
+        @if (TempData["msg"] != null)
+        {
+            <div class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Show notification if it exists
+            if ($('#notification').text().trim() !== '') {
+                $('#notification').fadeIn().delay(3000).fadeOut(); // Display for 3 seconds
+            }
+        });
+    </script>
+}
+
+@* <style>
+    .table {
+        color: white; /* Change text color for table cells */
+    }
+
+        .table thead th {
+            background-color: #003366; /* Darker background for the header */
+            color: white; /* White text for header */
+        }
+
+        .table tbody td {
+            background-color: rgba(0, 0, 0, 0.5); /* Optional: Dark background for table rows */
+            color: white; /* White text for table cells */
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(0, 0, 0, 0.7); /* Darker background on row hover */
+        }
+</style> *@

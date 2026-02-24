@@ -1,0 +1,78 @@
+﻿@model IEnumerable<WardDapperMVC.Models.Domain.PatientInstruction>
+
+<div class="wide-dark-box">
+    <h2>Patient Instructions</h2>
+    <br />
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class ="table-dark">
+                <tr>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Date of Visit</th>
+                    <th>Follow Up Appointment Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                @foreach (var instruction in Model)
+                {
+                    <tr>
+                        <td>@instruction.PatientFullName</td>
+                        <td>@instruction.UserFullName</td>
+                        <td>@(instruction.DateOfVisit != default(DateTime) ? instruction.DateOfVisit.ToShortDateString() : "N/A")</td>
+                        <td>@instruction.FollowUpAppointmentDate?.ToShortDateString()</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@instruction.InstructionID" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@instruction.InstructionID" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div> 
+    <br />
+    <a asp-action="Add" class="btn btn-success">Add New Instruction</a>
+    <a asp-controller="Event" asp-action="Index" class="btn btn-primary">Go To Calendar</a>
+    <br />
+    <div id="notification" style="display:none; padding: 10px;">
+        @if (TempData["msg"] != null)
+        {
+            <div class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Show notification if it exists
+            if ($('#notification').text().trim() !== '') {
+                $('#notification').fadeIn().delay(3000).fadeOut(); // Display for 3 seconds
+            }
+        });
+    </script>
+}
+@* <style>
+    .table {
+        color: white; /* Change text color for table cells */
+    }
+
+        .table thead th {
+            background-color: #003366; /* Darker background for the header */
+            color: white; /* White text for header */
+        }
+
+        .table tbody td {
+            background-color: rgba(0, 0, 0, 0.5); /* Optional: Dark background for table rows */
+            color: white; /* White text for table cells */
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(0, 0, 0, 0.7); /* Darker background on row hover */
+        }
+</style> *@

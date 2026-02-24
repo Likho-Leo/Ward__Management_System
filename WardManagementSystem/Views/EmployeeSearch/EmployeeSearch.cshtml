@@ -1,0 +1,61 @@
+﻿@model WardDapperMVC.Models.Domain.EmployeeSearchViewModel
+<div class="wide-dark-box">
+    <h2>Track Employees</h2>
+    <hr />
+    <p>
+        Welcome to the report section of our Ward Management System.
+        Here, you can efficiently generate reports for employee within a specified date range or role, allowing you to effectively monitor trends and manage resources for those particular days.
+        <br />
+        <br />
+        Search by role or dates or you can use all of them.
+    </p>
+    <form asp-action="EmployeeSearch" method="post">
+        <div class="mb-3">
+            <label for="Role" class="form-label">Role:</label>
+            <input asp-for="Role" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="StartDate" class="form-label">Start Date:</label>
+            <input asp-for="StartDate" class="form-control" type="date" />
+        </div>
+        <div class="mb-3">
+            <label for="EndDate" class="form-label">End Date:</label>
+            <input asp-for="EndDate" class="form-control" type="date" />
+        </div>
+        <button type="submit" class="btn btn-info">Search</button>
+    </form>
+    @if (Model.Employees.Any())
+    {
+        <h4>Employee Employment Summary</h4>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Employee Number</th>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Employment Date</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                @foreach (var employee in Model.Employees)
+                {
+                    <tr>
+                        <td>@employee.EmployeeNumber</td>
+                        <td>@($"{employee.FirstName} {employee.LastName}")</td>
+                        <td>@employee.Role</td>
+                        <td>@employee.EmploymentDate.ToShortDateString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <form asp-action="GenerateReport" method="post">
+            <input type="hidden" name="Role" value="@Model.Role" />
+            <input type="hidden" name="StartDate" value="@Model.StartDate" />
+            <input type="hidden" name="EndDate" value="@Model.EndDate" />
+            <button type="submit" class="btn btn-info my-2">Generate Report</button>
+        </form>
+    }
+</div>
+
+

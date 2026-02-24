@@ -1,0 +1,341 @@
+﻿@model WardDapperMVC.Models.Domain.Patient
+@{
+    ViewData["Title"] = "Add Patient";
+}
+
+<div class="wide-dark-box">
+    <h3 class="text-center">RECORD PATIENT</h3>
+    <p>
+        Welcome to the Add Patients section of our Ward Management System,
+        designed to streamline the process of enrolling new patients efficiently.
+    </p>
+
+    <!-- Progress Bar -->
+    <div class="progress mb-3" style="height: 13px; border-radius: 5px; background-color: #e9ecef;">
+        <div id="progressBar" class="progress-bar bg-success" role="progressbar" style="width: 0%; border-radius: 5px; font-size: 0.8em;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+
+    <form id="patientForm" asp-action="AddPatient" method="post">
+        <input type="hidden" asp-for="ReferPatientID" />
+
+        <!-- Personal Information Section -->
+        <fieldset id="personalInfo">
+            <legend>Personal Information</legend>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="PatientNumber" class="form-label">Patient Number<span style="color: red;">*</span></label>
+                    <input asp-for="PatientNumber" type="text" class="form-control" readonly />
+                    <span class="text-danger" asp-validation-for="PatientNumber"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="FirstName" class="form-label">First Name<span style="color: red;">*</span></label>
+                    <input asp-for="FirstName" type="text" class="form-control" />
+                    <span class="text-danger" asp-validation-for="FirstName"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="LastName" class="form-label">Last Name<span style="color: red;">*</span></label>
+                    <input asp-for="LastName" type="text" class="form-control"  />
+                    <span class="text-danger" asp-validation-for="LastName"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="Title" class="form-label">Title<span style="color: red;">*</span></label>
+                    <select asp-for="Title" class="form-control">
+                        <option value="">-- Select Title --</option>
+                        <option value="Mr.">Mr.</option>
+                        <option value="Ms.">Ms.</option>
+                        <option value="Mrs.">Mrs.</option>
+                        <option value="Dr.">Dr.</option>
+                        <option value="Prof.">Prof.</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="Title"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Gender<span style="color: red;">*</span></label><br />
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" asp-for="Gender" value="Male" />
+                        <label class="form-check-label">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" asp-for="Gender" value="Female" />
+                        <label class="form-check-label">Female</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" asp-for="Gender" value="Other" />
+                        <label class="form-check-label">Other</label>
+                    </div>
+                    <span class="text-danger" asp-validation-for="Gender"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="IDNumber" class="form-label">ID Number<span style="color: red;">*</span></label>
+                    <input asp-for="IDNumber" class="form-control"  />
+                    <span class="text-danger" asp-validation-for="IDNumber"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="DOB" class="form-label">Date of Birth<span style="color: red;">*</span></label>
+                    <input asp-for="DOB" type="date" class="form-control" />
+                    <span class="text-danger" asp-validation-for="DOB"></span>
+                </div>
+            </div>
+            <br />
+            <div class="d-flex justify-content-between">
+                <a asp-controller="Patient" asp-action="DisplayAllPatient" class="btn btn-secondary">Display Records</a>
+                <button type="button" id="nextToContact" class="btn btn-primary">Next</button>
+            </div>
+        </fieldset>
+
+        <!-- Contact Information Section -->
+        <fieldset id="contactInfo" style="display:none;">
+            <legend>Contact Information</legend>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="PhoneNumber" class="form-label">Phone Number<span style="color: red;">*</span></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Email" class="form-label">Email Address<span style="color: red;">*</span></label>
+                    <input asp-for="Email" type="email" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="AddressLine1" class="form-label">Address Line1<span style="color: red;">*</span></label>
+                    <input asp-for="AddressLine1" type="text" class="form-control" placeholder="e.g. 123 Main St" />
+                    <span class="text-danger" asp-validation-for="AddressLine1"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="AddressLine2" class="form-label">Address Line2</label>
+                    <input asp-for="AddressLine2" type="text" class="form-control" placeholder="e.g. Apt 4B (optional)" />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="Country" class="form-label">Country<span style="color: red;">*</span></label>
+                    <input asp-for="Country" type="text" class="form-control" placeholder="e.g. USA" />
+                    <span class="text-danger" asp-validation-for="Country"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Province" class="form-label">Province<span style="color: red;">*</span></label>
+                    <input asp-for="Province" type="text" class="form-control" placeholder="e.g. California" />
+                    <span class="text-danger" asp-validation-for="Province"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="City" class="form-label">City<span style="color: red;">*</span></label>
+                    <input asp-for="City" type="text" class="form-control" placeholder="e.g. Los Angeles" />
+                    <span class="text-danger" asp-validation-for="City"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Town_Surburb" class="form-label">Town/Surburb<span style="color: red;">*</span></label>
+                    <input asp-for="Town_Surburb" type="text" class="form-control" placeholder="e.g. Downtown" />
+                    <span class="text-danger" asp-validation-for="Town_Surburb"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="PostalCode" class="form-label">Postal Code<span style="color: red;">*</span></label>
+                    <input asp-for="PostalCode" type="text" class="form-control" placeholder="e.g. 90001" />
+                    <span class="text-danger" asp-validation-for="PostalCode"></span>
+                </div>
+            </div>
+            <br />
+            <div class="d-flex justify-content-between">
+                <button type="button" id="backToPersonal" class="btn btn-secondary">Previous</button>
+                <button type="button" id="nextToNextOfKin" class="btn btn-primary">Next</button>
+            </div>
+        </fieldset>
+
+        <!-- Next of Kin Section -->
+        <fieldset id="nextOfKin" style="display:none;">
+            <legend>Next of Kin Information</legend>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="NextOfKinName" class="form-label">Next Of Kin Full Name<span style="color: red;">*</span></label>
+                    <input asp-for="NextOfKinName" class="form-control"  />
+                    <span class="text-danger" asp-validation-for="NextOfKinName"></span>
+                </div>             
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="NextOfKinRelationship" class="form-label">Relationship<span style="color: red;">*</span></label>
+                    <input asp-for="NextOfKinRelationship" class="form-control" />
+                    <span class="text-danger" asp-validation-for="NextOfKinRelationship"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="NextOfKinPhoneNumber" class="form-label">Next Of Kin Phone Number<span style="color: red;">*</span></label>
+                    <input asp-for="NextOfKinPhoneNumber" class="form-control"  />
+                    <span class="text-danger" asp-validation-for="NextOfKinPhoneNumber"></span>
+                </div>
+            </div>
+            <br />
+            <div class="d-flex justify-content-between">
+                <button type="button" id="backToContact" class="btn btn-secondary">Previous</button>
+                <button type="button" id="nextToEmergency" class="btn btn-primary">Next</button>
+            </div>
+        </fieldset>
+
+        <!-- Emergency Contact Section -->
+        <fieldset id="emergencyContact" style="display:none;">
+            <legend>Emergency Contact Information</legend>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="EmergencyContactName" class="form-label">Emergency Contact Name</label>
+                    <input asp-for="EmergencyContactName" class="form-control"  />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="EmergencyContactPhone" class="form-label">Emergency Contact Phone</label>
+                    <input asp-for="EmergencyContactPhone" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="d-flex justify-content-between">
+                <button type="button" id="backToNextOfKin" class="btn btn-secondary">Previous</button>
+                <button type="button" id="nextToInsurance" class="btn btn-primary">Next</button>
+            </div>
+        </fieldset>
+
+        <!-- Insurance Information Section -->
+        <fieldset id="insuranceInfo" style="display:none;">
+            <legend>Insurance Information</legend>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="InsuranceProvider" class="form-label">Insurance Provider</label>
+                    <input asp-for="InsuranceProvider" class="form-control" placeholder="e.g. Health Insure Co." />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="PolicyNumber" class="form-label">Policy Number</label>
+                    <input asp-for="PolicyNumber" class="form-control" placeholder="e.g. ABC123456" />
+                </div>
+            </div>
+            <br />
+            <div class="d-flex justify-content-between">
+                <button type="button" id="backToEmergency" class="btn btn-secondary">Previous</button>
+                <button type="button" id="nextToMedical" class="btn btn-primary">Next</button> <!-- Updated button ID -->
+            </div>
+        </fieldset>
+
+        <!-- Medical Information Section -->
+        <fieldset id="medicalInfo" style="display:none;">
+            <legend>Medical Information</legend>
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <label asp-for="MedicalHistory" class="form-label">Medical History</label>
+                    <textarea asp-for="MedicalHistory" class="form-control" rows="3" placeholder="Example: Previous surgeries, chronic conditions"></textarea>
+                    <span asp-validation-for="MedicalHistory" class="text-danger"></span>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <label asp-for="Allergies" class="form-label">Allergies</label>
+                    <input asp-for="Allergies" type="text" class="form-control" placeholder="List any allergies..." />
+                    <span asp-validation-for="Allergies" class="text-danger"></span>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <label asp-for="CurrentMedications" class="form-label">Current Medications</label>
+                    <input asp-for="CurrentMedications" type="text" class="form-control" placeholder="List current medications..." />
+                    <span asp-validation-for="CurrentMedications" class="text-danger"></span>
+                </div>
+            </div>
+
+            <br />
+            <div class="d-flex justify-content-between">
+                <button type="button" id="backToInsurance" class="btn btn-secondary">Previous</button>
+                <button type="submit" class="btn btn-success">Save</button>
+            </div>
+        </fieldset>
+
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#nextToContact').click(function () {
+                $('#personalInfo').hide();
+                $('#contactInfo').show();
+                updateProgress(25);
+            });
+            $('#backToPersonal').click(function () {
+                $('#contactInfo').hide();
+                $('#personalInfo').show();
+                updateProgress(0);
+            });
+            $('#nextToNextOfKin').click(function () {
+                $('#contactInfo').hide();
+                $('#nextOfKin').show();
+                updateProgress(50);
+            });
+            $('#backToContact').click(function () {
+                $('#nextOfKin').hide();
+                $('#contactInfo').show();
+                updateProgress(25);
+            });
+            $('#nextToEmergency').click(function () {
+                $('#nextOfKin').hide();
+                $('#emergencyContact').show();
+                updateProgress(75);
+            });
+            $('#backToNextOfKin').click(function () {
+                $('#emergencyContact').hide();
+                $('#nextOfKin').show();
+                updateProgress(50);
+            });
+            $('#nextToInsurance').click(function () {
+                $('#emergencyContact').hide();
+                $('#insuranceInfo').show();
+                updateProgress(90);
+            });
+            $('#backToEmergency').click(function () {
+                $('#insuranceInfo').hide();
+                $('#emergencyContact').show();
+                updateProgress(75);
+            });
+            $('#backToInsurance').click(function () {
+                $('#medicalInfo').hide();
+                $('#insuranceInfo').show();
+                updateProgress(75);
+            });
+            $('#nextToMedical').click(function () { // Updated event
+                $('#insuranceInfo').hide();
+                $('#medicalInfo').show();
+                updateProgress(100);
+            });
+        });
+
+        function updateProgress(percent) {
+            $('#progressBar').css('width', percent + '%').attr('aria-valuenow', percent);
+            $('#progressBar').text(percent + '%');
+        }
+    </script>
+}
+
+
+
+
+
+
+
+

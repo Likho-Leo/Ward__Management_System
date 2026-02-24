@@ -1,0 +1,75 @@
+﻿@model WardDapperMVC.Models.Domain.Medication
+@{
+    ViewData["Title"] = "EditMed";
+}
+
+<div class="wide-dark-box">
+    <h2 class="text-center">UPDATE MEDICATION</h2>
+    <br />
+    <p>
+        Welcome to the Manage Medication section of our Ward Management System.
+        This feature is designed to help administrators and healthcare professionals efficiently manage and monitor patient medications.
+    </p>
+
+    <form asp-action="EditMed" method="post">
+        <input type="hidden" asp-for="MedID" />
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="MedicationType" class="form-label">Medication Type<span style="color: red;">*</span></label>
+                <input asp-for="MedicationType" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="MedicationType"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="MedicationName" class="form-label">Medication Name<span style="color: red;">*</span></label>
+                <input asp-for="MedicationName" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="MedicationName"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Description" class="form-label">Description<span style="color: red;">*</span></label>
+                <textarea class="form-control" asp-for="Description" rows="3"></textarea>
+                <span class="text-danger" asp-validation-for="Description"></span>
+            </div>
+        </div>
+
+        <br />
+        @if (TempData["msg"] != null)
+        {
+            <div id="notification" class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+
+        <div class="d-flex justify-content-start align-items-center">
+            <button type="submit" class="btn btn-success">Save</button>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-controller="Medication" asp-action="DisplayAllMed" class="my-2 btn btn-primary">Display Records</a>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Hide validation messages when user starts typing
+            $('input, textarea').on('input', function () {
+                $(this).siblings('.text-danger').hide();
+            });
+        });
+        $(document).ready(function () {
+            // Show notification if it exists
+            if ($('#notification').text().trim() !== '') {
+                $('#notification').fadeIn().delay(3000).fadeOut(); // Display for 3 seconds
+            }
+        });
+    </script>
+}
+

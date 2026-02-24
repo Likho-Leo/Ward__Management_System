@@ -1,0 +1,94 @@
+﻿@model IEnumerable<WardDapperMVC.Models.Domain.Consumable>
+@{
+    ViewData["Title"] = "DisplayAllConsumable";
+}
+
+<div class="wide-dark-box">
+    <h1 class="text-center">MANAGE CONSUMABLES</h1>
+    <br />
+    <p>
+        Welcome to the Manage Consumables section of our Ward Management System.
+        This feature is designed to assist administrators in effectively managing and tracking the inventory of medical consumables within our healthcare facility.
+    </p>
+
+    <div class="table-responsive">
+        <!-- Search Form -->
+        <form method="get" asp-controller="Consumable" asp-action="DisplayAllConsumable" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search by Consumable Type"
+                       aria-label="Search by Patient Number" value="@Context.Request.Query["search"]" style="max-width: 300px;" />
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </form>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Consumable Type</th>
+                    <th>Stock On Hand</th>
+                    <th>Par Level</th>
+                    <th>Reorder Point</th>
+                    <th>Stock Manager First Name</th>
+                    <th>Stock Manager Last Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                @foreach (var consumable in Model)
+                {
+                    <tr>
+                        <td>@consumable.ConsumableType</td>
+                        <td>@consumable.StockOnHand</td>
+                        <td>@consumable.ParLevel</td>
+                        <td>@consumable.ReorderPoint</td>
+                        <td>@consumable.FirstName</td>
+                        <td>@consumable.LastName</td>
+                        <td white-space: nowrap>
+                            <a asp-controller="Consumable" asp-action="EditConsumable" asp-route-id="@consumable.ConsumableID" class="btn btn-info my-2">Edit</a>
+                            <a asp-controller="Consumable" asp-action="DeleteConsumable" asp-route-id="@consumable.ConsumableID" class="btn btn-danger" onclick="return window.confirm('Are you sure you want to delete this record? This action cannot be undone.')">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <a asp-controller="Consumable" asp-action="AddConsumable" class="btn btn-success">Add more</a>
+    <br />
+    <div id="notification" style="display:none; padding: 10px;">
+        @if (TempData["msg"] != null)
+        {
+            <div class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    /* Search bar styling */
+    .input-group {
+        max-width: 320px; /* Set a max width for the search bar */
+        margin-bottom: 20px; /* Add margin below the search bar */
+    }
+
+    /* Highlight row on hover */
+    .table tbody tr:hover {
+        background-color: #f1f1f1; /* Light gray background */
+    }
+
+    /* Optional: Make the table more visually appealing */
+    .table {
+        margin-top: 20px;
+    }
+</style>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Show notification if it exists
+            if ($('#notification').text().trim() !== '') {
+                $('#notification').fadeIn().delay(3000).fadeOut(); // Display for 3 seconds
+            }
+        });
+    </script>
+}

@@ -1,0 +1,74 @@
+﻿@model WardDapperMVC.Models.Domain.Allergy
+@{
+    ViewData["Title"] = "EditAllergy";
+}
+
+<div class="wide-dark-box">
+    <h2 class="text-center">UPDATE ALLERGIES</h2>
+    <br />
+    <p>
+        Welcome to the Manage Allergies section of our Ward Management System.
+        This feature is designed to help administrators and healthcare professionals efficiently document and monitor patient allergies to ensure safe and effective care.
+    </p>
+
+    <form asp-action="EditAllergy" method="post">
+        <input type="hidden" asp-for="AllergyID" />
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Allergen" class="form-label">Allergen<span style="color: red;">*</span></label>
+                <input asp-for="Allergen" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="Allergen"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="AllergyType" class="form-label">Allergy Type<span style="color: red;">*</span></label>
+                <input asp-for="AllergyType" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="AllergyType"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label asp-for="Symptoms" class="form-label">Symptoms<span style="color: red;">*</span></label>
+                <input asp-for="Symptoms" type="text" class="form-control">
+                <span class="text-danger" asp-validation-for="Symptoms"></span>
+            </div>
+        </div>
+
+        <br />
+        @if (TempData["msg"] != null)
+        {
+            <div id="notification" class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+
+        <div class="d-flex justify-content-start align-items-center">
+            <button type="submit" class="btn btn-success">Save</button>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-controller="Allergy" asp-action="DisplayAllAllergy" class="my-2 btn btn-primary">Display Records</a>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Hide validation messages when user starts typing
+            $('input, textarea').on('input', function () {
+                $(this).siblings('.text-danger').hide();
+            });
+        });
+        $(document).ready(function () {
+            // Show notification if it exists
+            if ($('#notification').text().trim() !== '') {
+                $('#notification').fadeIn().delay(3000).fadeOut(); // Display for 3 seconds
+            }
+        });
+    </script>
+}

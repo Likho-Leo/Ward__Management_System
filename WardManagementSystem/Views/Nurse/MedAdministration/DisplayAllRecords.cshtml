@@ -1,0 +1,74 @@
+﻿@model IEnumerable<WardDapperMVC.Models.Domain.Nurse.MedAdministration>
+@{
+    ViewData["Title"] = "View Administered Med";
+}
+
+<div class="wide-dark-box">
+    <h1 class="text-center">VIEW MEDICATION ADMINISTERED</h1>
+    <hr style="border: 1px solid white; width: 100%; text-align: center;" />
+    <p>
+        Welcome to the Administer Medication section of. This tool is designed to assist you in safely and efficiently administering medications that are both part of or not part of the regular schedule.
+    </p>
+    <br />
+
+    <form class="example" method="get" action="@Url.Action("Search", "MedAdministration")">
+        <input type="text" placeholder="Search by Patient No" name="searchTerm">
+        <button type="submit"><i class="fa fa-search"></i></button>
+        <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+        <a href="~/MedAdministration/DisplayAllRecords" class="btn btn-primary">Clear Search</a>
+    </form>
+    <!-- Display the error message -->
+    @if (ViewData.ModelState["SearchError"] != null)
+    {
+        <div class="text-danger">
+            @ViewData.ModelState["SearchError"].Errors[0].ErrorMessage
+        </div>
+    }
+
+    <div class="my-2">
+        <div style="overflow-x:auto;">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <td>Patient Number</td>
+                        <th>Patient First Name</th>
+                        <th>Patient Last Name</th>
+                        <th>Medication</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Nurse Number</th>
+                        <th>Nurse First Name</th>
+                        <th>Nurse Last Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class=" table-light">
+                    @foreach (var medAdmin in Model)
+                    {
+                        <tr>
+                            <td>@medAdmin.PatientNumber</td>
+                            <td>@medAdmin.PatientFirstName</td>
+                            <td>@medAdmin.PatientLastName</td>
+                            <td>@medAdmin.Med</td>
+                            <td white-space: nowrap>@medAdmin.Date.ToString("dd-MM-yyyy HH:mm")</td>
+                            <td>@medAdmin.status</td>
+                            <td>@medAdmin.EmployeeNumber</td>
+                            <td>@medAdmin.NurseFirstName</td>
+                            <td>@medAdmin.NurseLastName</td>
+                            <td white-space: nowrap>
+                                <a href="~/MedAdministration/UpdateRecord?id=@medAdmin.AdminMedID" class="btn btn-success">Edit</a>
+                                <a href="~/MedAdministration/ViewDeleteMedAdmin?id=@medAdmin.AdminMedID" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <div class="d-flex justify-content-start align-items-center">
+            <a asp-controller="MedAdministration" asp-action="AddRecord" class="btn btn-primary">Add More</a>
+            <span class="mx-2" style="border-right: 2px solid white; height: 24px;"></span>
+            <a asp-controller="Nurse" asp-action="Home" class="btn btn-primary">Home</a>
+        </div>
+    </div>
+</div>

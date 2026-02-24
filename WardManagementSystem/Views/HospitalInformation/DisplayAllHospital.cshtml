@@ -1,0 +1,70 @@
+﻿@model IEnumerable<WardDapperMVC.Models.Domain.HospitalInformation>
+@{
+    ViewData["Title"] = "DisplayAllHospital";
+}
+
+<div class="wide-dark-box">
+    <h1 class="text-center">MANAGE HOSPITAL INFO​RMATION</h1>
+    <br />
+    <p>Welcome to the Manage Hospital Information section of our Ward Management System. 
+        This feature is designed to assist administrators in efficiently managing and updating critical hospital information.</p>
+    
+    <div class="table-responsive">  
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Hospital Name</th>
+                    <th>Slogan</th>
+                    <th>Tell Number</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Logo</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-light">
+                @foreach (var hospital in Model)
+                {
+                    <tr>
+                        <td>@hospital.HospitalName</td>
+                        <td>@hospital.Slogan</td>
+                        <td>@hospital.TellNO</td>
+                        <td>@hospital.Email</td>
+                        <td>@hospital.Address</td>
+                        <td>
+                            <img src="data:image/png;base64,@(Convert.ToBase64String(@hospital.Logo))" alt="Hospital Logo" class="img-fluid" />
+                        </td>
+                        <td white-space: nowrap>
+                            <a asp-controller="HospitalInformation" asp-action="EditHospital" asp-route-id="@hospital.InfoID" class="btn btn-info my-2">Edit</a>
+                            <a asp-controller="HospitalInformation" asp-action="DeletHospital" asp-route-id="@hospital.InfoID" class="btn btn-danger" onclick="return window.confirm('Are you sure you want to delete this record? This action cannot be undone.')">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <a asp-controller="HospitalInformation" asp-action="AddHospital" class="btn btn-success">Add more</a>
+    <br />
+    <div id="notification" style="display:none; padding: 10px;">
+        @if (TempData["msg"] != null)
+        {
+            <div class="mb-3 alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Show notification if it exists
+            if ($('#notification').text().trim() !== '') {
+                $('#notification').fadeIn().delay(3000).fadeOut(); // Display for 3 seconds
+            }
+        });
+    </script>
+}
+
